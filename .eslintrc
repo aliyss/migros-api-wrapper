@@ -1,0 +1,173 @@
+{
+	"root": true,
+	"parser": "@typescript-eslint/parser",
+	"plugins": [
+		"@typescript-eslint",
+		"no-loops"
+	],
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended"
+	],
+	"rules": {
+		"no-loops/no-loops": 2,
+		"no-empty-pattern": [
+			"off"
+		],
+		"no-undef": [
+			"error"
+		],
+		"no-var": [
+			"error"
+		],
+		"object-curly-spacing": [
+			"error",
+			"always"
+		],
+		"operator-linebreak": [
+			"error",
+			"after",
+			{
+				"overrides": {
+					"?": "before",
+					":": "before"
+				}
+			}
+		],
+		"@typescript-eslint/indent": [
+			"error",
+			"tab",
+			{
+				"SwitchCase": 1
+			}
+		],
+		"@typescript-eslint/explicit-module-boundary-types": [
+			"error"
+		],
+		"@typescript-eslint/no-unused-vars": "error",
+		"@typescript-eslint/no-explicit-object": "off",
+		"@typescript-eslint/comma-dangle": [
+			"error"
+		],
+		"@typescript-eslint/default-param-last": "error",
+		"@typescript-eslint/naming-convention": [
+			"error",
+			{
+				"selector": "variable",
+				"format": [
+					"camelCase",
+					"UPPER_CASE"
+				]
+			},
+			{
+				"selector": "function",
+				"format": [
+					"camelCase"
+				]
+			},
+			{
+				"selector": "parameter",
+				"format": [
+					"camelCase"
+				]
+			},
+			{
+				"selector": "classProperty",
+				"format": [
+					"UPPER_CASE",
+					"camelCase"
+				]
+			},
+			{
+				"selector": "objectLiteralProperty",
+				"format": [
+					"UPPER_CASE",
+					"camelCase"
+				]
+			},
+			{
+				"selector": "typeProperty",
+				"format": [
+					"camelCase"
+				]
+			},
+			{
+				"selector": "parameterProperty",
+				"format": [
+					"UPPER_CASE"
+				]
+			},
+			{
+				"selector": "classMethod",
+				"format": [
+					"camelCase"
+				]
+			},
+			{
+				"selector": "objectLiteralMethod",
+				"format": [
+					"camelCase"
+				]
+			},
+			{
+				"selector": "typeMethod",
+				"format": [
+					"UPPER_CASE"
+				]
+			},
+			{
+				"selector": "accessor",
+				"format": [
+					"UPPER_CASE"
+				]
+			},
+			{
+				"selector": "enumMember",
+				"format": [
+					"UPPER_CASE"
+				]
+			},
+			{
+				"selector": "class",
+				"format": [
+					"StrictPascalCase",
+					"PascalCase"
+				]
+			},
+			{
+				"selector": "interface",
+				"format": [
+					"PascalCase"
+				],
+				"prefix": [
+					"I"
+				]
+			},
+			{
+				"selector": "typeAlias",
+				"format": [
+					"StrictPascalCase"
+				]
+			},
+			{
+				"selector": "enum",
+				"format": [
+					"StrictPascalCase"
+				]
+			},
+			{
+				"selector": "typeParameter",
+				"format": [
+					"UPPER_CASE"
+				]
+			}
+		]
+	},
+	"env": {
+		"node": true
+	},
+	"ignorePatterns": [
+		"/*.*"
+	]
+}
