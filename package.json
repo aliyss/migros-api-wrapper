@@ -1,8 +1,13 @@
 {
 	"name": "migros-api-wrapper",
-	"version": "1.0.2",
+	"version": "1.0.4",
 	"description": "Making the api of migros more accessible to the public.",
-	"main": "index.js",
+	"main": "dist/index.js",
+	"typings": "./dist/index.d.ts",
+	"files": [
+		"/dist",
+		"/src"
+	],
 	"scripts": {
 		"test": "jest",
 		"lint": "eslint . --ext .ts",
@@ -10,7 +15,8 @@
 		"build": "rimraf ./dist && tsc",
 		"start": "npm run build && node dist/index.js",
 		"start:ts": "ts-node ./src/index.ts",
-		"start:dev": "nodemon"
+		"start:dev": "nodemon",
+		"prepublish": "npm run build"
 	},
 	"author": "aliyss",
 	"license": "MIT",
