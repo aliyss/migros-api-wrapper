@@ -2,14 +2,20 @@
 const defaultMigrosApiPath = "https://www.migros.ch"
 
 export const paths = {
-	'onesearch-oc-seapi':{
+	'onesearch-oc-seapi': {
 		public: {
 			v4: defaultMigrosApiPath + '/onesearch-oc-seaapi/public/v4'
 		}
 	},
-	'product-display':{
+	'product-display': {
 		public: {
 			v1: defaultMigrosApiPath + '/product-display/public/v1'
 		}
-	}
+	},
+	'marketablestock': {
+		public: {
+			v1: defaultMigrosApiPath + '/marketablestock/public/v1/api'
+		}
+	},
+	'login': 'https://login.migros.ch'
 }
