@@ -1,6 +1,6 @@
 {
 	"name": "migros-api-wrapper",
-	"version": "1.0.4",
+	"version": "1.0.6",
 	"description": "Making the api of migros more accessible to the public.",
 	"main": "dist/index.js",
 	"typings": "./dist/index.d.ts",

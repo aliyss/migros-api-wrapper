@@ -21,7 +21,7 @@ async function getUserInfoRequest(url: string, token: string): Promise<Record<st
 
 	const response = await getRequest(url, {}, headers)
 
-	return { body: response.body, ['set-cookie']: retrieveSetCookieFromHeaders(response.headers) }
+	return { body: response.body, ['set-cookie']: retrieveSetCookieFromHeaders(response.headers['set-cookie']) }
 }
 
 export async function getUserInfo(token: string): Promise<any> {
