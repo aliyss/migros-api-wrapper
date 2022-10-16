@@ -3,6 +3,7 @@ import { getRequest } from "../../utils/requests";
 
 import { paths } from "../apiPaths";
 import { ILoginCookies } from "../interfaces/cookies";
+import { retrieveSetCookieFromHeaders } from "../../utils/retrieveSetCookieFromHeaders";
 
 const url = paths["login"] + "/security/options"
 
@@ -25,7 +26,7 @@ async function getOptionsRequest(url: string, cookies: ILoginCookies): Promise<R
 
 	const response = await getRequest(url, {}, headers, cookies)
 
-	return response.body
+	return { body: response.body, ['set-cookie']: retrieveSetCookieFromHeaders(response.headers) }
 }
 
 export async function getOptions(cookies: ILoginCookies): Promise<any> {

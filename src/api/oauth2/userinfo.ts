@@ -2,6 +2,7 @@
 import { getRequest } from "../../utils/requests";
 
 import { paths } from "../apiPaths";
+import { retrieveSetCookieFromHeaders } from "../../utils/retrieveSetCookieFromHeaders";
 
 const url = paths["login"] + "/oauth2/userinfo"
 
@@ -20,7 +21,7 @@ async function getUserInfoRequest(url: string, token: string): Promise<Record<st
 
 	const response = await getRequest(url, {}, headers)
 
-	return response.body
+	return { body: response.body, ['set-cookie']: retrieveSetCookieFromHeaders(response.headers) }
 }
 
 export async function getUserInfo(token: string): Promise<any> {
