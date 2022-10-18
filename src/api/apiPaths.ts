@@ -17,5 +17,6 @@ export const paths = {
 			v1: defaultMigrosApiPath + '/marketablestock/public/v1/api'
 		}
 	},
-	'login': 'https://login.migros.ch'
+	'login': 'https://login.migros.ch',
+	'cumulus': 'https://cumulus.migros.ch'
 }

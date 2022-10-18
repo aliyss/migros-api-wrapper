@@ -1,7 +1,9 @@
 import { getCumulusStats } from "./stats";
+import { getCumulusReceipt, getCumulusReceiptFromUrl, getCumulusReceipts } from "./receipts";
 
 export const cumulus = {
-	stats: {
-		get: getCumulusStats
-	}
+	getCumulusStats: getCumulusStats,
+	getCumulusReceipt: getCumulusReceipt,
+	getCumulusReceiptFromUrl: getCumulusReceiptFromUrl,
+	getCumulusReceipts: getCumulusReceipts
 }

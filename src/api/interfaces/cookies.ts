@@ -12,3 +12,14 @@ export interface ILoginCookies extends ICookies {
 	["hl"]: string
 	["TS012f1684"]: string
 }
+
+export interface ICumulusCookies extends ICookies {
+	["BIGipServerpool_shared_migros.ch_80"]: string
+	["REALPERSON_SESSION"]: string,
+	["cookie-banner-acceptance-state"]: string
+	["mo-fulfilmentOption"]: string
+	["mo-sidebarsState"]: string
+	["mo-lang"]: string
+	["mo-securityContext"]: string
+	["JSESSIONID"]: string
+}

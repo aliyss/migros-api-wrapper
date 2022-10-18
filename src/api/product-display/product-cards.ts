@@ -1,9 +1,9 @@
-import { StoreType } from "../../../enums/StoreType";
-import { Region } from "../../../enums/Region";
+import { StoreType } from "../enums/StoreType";
+import { Region } from "../enums/Region";
 
-import { getRequest } from "../../../../utils/requests";
+import { getRequest } from "../../utils/requests";
 
-import { paths } from "../../../apiPaths";
+import { paths } from "../apiPaths";
 
 const url = paths["product-display"].public.v1 + "/product-cards"
 

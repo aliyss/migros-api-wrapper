@@ -4,7 +4,7 @@ import { describe, expect, test } from '@jest/globals';
 describe('Check for Migros Cookies', () => {
 	test('Start login process and retrieve Cookies', async () => {
 		/*
-		const response = await MigrosAPI.security.options.get({
+		const response = await MigrosAPI.account.security.getOptions({
 			["CSRF"]: ".",
 			["JSESSIONID"]: ".",
 			["MDID"]: ".",

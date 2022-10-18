@@ -1,6 +1,6 @@
-import { getRequest } from "../../../../utils/requests";
+import { getRequest } from "../../utils/requests";
 
-import { paths } from "../../../apiPaths";
+import { paths } from "../apiPaths";
 
 const url = paths["marketablestock"].public.v1 + "/warehouses"
 

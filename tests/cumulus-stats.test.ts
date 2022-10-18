@@ -4,7 +4,7 @@ import { describe, expect, test } from '@jest/globals';
 describe('Check for Migros Cumulus Stats', () => {
 	test('Retrieve Cumulus Stats', async () => {
 		/*
-		const response = await MigrosAPI.cumulus.stats.get({
+		const response = await MigrosAPI.account.cumulus.getCumulusStats({
 			["CSRF"]: ".",
 			["JSESSIONID"]: ".",
 			["MDID"]: ".",
