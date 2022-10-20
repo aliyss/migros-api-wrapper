@@ -1,5 +1,7 @@
 import { getOptions } from "./options";
+import { getPaymentDevices } from "./devices";
 
 export const security = {
-	getOptions: getOptions
+	getOptions: getOptions,
+	getPaymentDevices: getPaymentDevices
 }
