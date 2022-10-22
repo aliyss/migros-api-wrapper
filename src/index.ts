@@ -1,3 +1,2 @@
-import { MigrosAPI } from "./api/MigrosAPI";
-
-export default MigrosAPI
+export { ICookies, ILoginCookies, ICumulusCookies } from "./api/interfaces/cookies";
+export { MigrosAPI } from "./api/MigrosAPI";
