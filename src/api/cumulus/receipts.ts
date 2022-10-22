@@ -4,12 +4,12 @@ import * as cheerio from 'cheerio';
 
 import { getRequest } from "../../utils/requests";
 
-import { paths } from "../apiPaths";
+import { MigrosApiPaths } from "../apiPaths";
 import { ICumulusCookies } from "../interfaces/cookies";
 import { Language } from "../enums/Language";
 
-const urlExport = paths["cumulus"] + "/service/avantaReceiptExport/html"
-const urlList = paths["cumulus"] + "/de/konto/kassenbons/variants/variant-1/content/04/ajaxContent/0.html"
+const urlExport = MigrosApiPaths["cumulus"] + "/service/avantaReceiptExport/html"
+const urlList = MigrosApiPaths["cumulus"] + "/de/konto/kassenbons/variants/variant-1/content/04/ajaxContent/0.html"
 
 export interface ICumulusReceiptOptions extends Record<string, any> {
 	receiptId: string,
@@ -134,7 +134,7 @@ export async function getCumulusReceipt(cumulusReceiptOptions: ICumulusReceiptOp
 }
 
 export async function getCumulusReceiptFromUrl(url: string, cookies: ICumulusCookies): Promise<any> {
-	url = paths["cumulus"] + url
+	url = MigrosApiPaths["cumulus"] + url
 	return getCumulusReceiptRequest(url, { }, cookies)
 }
 
@@ -202,8 +202,8 @@ async function getCumulusReceiptsRequest(url: string, options: ICumulusReceiptsO
 					value: parseFloat(($(rowItems[4])[0].children[0] as any)["data"])
 				},
 				links: {
-					html: paths["cumulus"] + ($(rowItems[1])[0].children[1] as any).attribs["data-modal-src"],
-					pdf: paths["cumulus"] + ($(rowItems[1])[0].children[1] as any).attribs.href
+					html: MigrosApiPaths["cumulus"] + ($(rowItems[1])[0].children[1] as any).attribs["data-modal-src"],
+					pdf: MigrosApiPaths["cumulus"] + ($(rowItems[1])[0].children[1] as any).attribs.href
 				},
 				id: ($(rowItems[1])[0].children[1] as any).attribs.href.match(new RegExp(/(?<==).*?(?=&|$)/))[0]
 			})

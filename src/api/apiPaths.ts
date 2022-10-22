@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 const defaultMigrosApiPath = "https://www.migros.ch"
 
-export const paths = {
+export const MigrosApiPaths = {
 	'onesearch-oc-seapi': {
 		public: {
 			v4: defaultMigrosApiPath + '/onesearch-oc-seaapi/public/v4'

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { getRequest } from "../../utils/requests";
 
-import { paths } from "../apiPaths";
+import { MigrosApiPaths } from "../apiPaths";
 import { ILoginCookies } from "../interfaces/cookies";
 import { retrieveSetCookieFromHeaders } from "../../utils/retrieveSetCookieFromHeaders";
 
-const url = paths["login"] + "/ma/api/user/cumulus/credit-card"
+const url = MigrosApiPaths["login"] + "/ma/api/user/cumulus/credit-card"
 
 async function getCumulusCreditCardRequest(url: string, cookies: ILoginCookies): Promise<Record<string, any>> {
 
