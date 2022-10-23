@@ -23,7 +23,7 @@ async function main() {
 	console.log(responseProductSearch)
 
 	// Certain API Calls need cookies to be accessed.
-    // For more accessible options and automatic logins check the IamQuiteHungry Repository: https://github.com/Aliyss/IAmQuiteHungry
+	// For more accessible options and automatic logins check the IamQuiteHungry Repository: https://github.com/Aliyss/IAmQuiteHungry
 	const loginCookies: ILoginCookies = {
 		__VCAP_ID__: "",
 		MDID: "",

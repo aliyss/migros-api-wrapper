@@ -1,6 +1,6 @@
 {
 	"name": "migros-api-wrapper",
-	"version": "1.1.0",
+	"version": "1.1.2",
 	"description": "Making the api of migros more accessible to the public.",
 	"main": "dist/index.js",
 	"typings": "./dist/index.d.ts",
@@ -24,7 +24,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Aliyss/migros-api-wrapper.git"
+		"url": "git://github.com/aliyss/migros-api-wrapper.git"
 	},
 	"homepage": "https://github.com/aliyssium/migros-api-wrapper#readme",
 	"devDependencies": {
