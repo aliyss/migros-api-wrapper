@@ -36,5 +36,7 @@ jobs:
         run: npm set //npm.pkg.github.com/:_authToken ${{ secrets.GPR_TOKEN }}
       - name: Npm registry authentication
         run: npm set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
+      - name: Install packages
+        run: npm install
       - name: Publish the package to Github and Npm package registries
         run: npm publish
