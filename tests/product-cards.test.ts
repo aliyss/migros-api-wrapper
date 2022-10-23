@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-import MigrosAPI from "../src";
+import { MigrosAPI } from "../src";
 import { IProductCardsOptions } from "../src/api/product-display/product-cards";
 
 describe('Search for a Product Card', () => {

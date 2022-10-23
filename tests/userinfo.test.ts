@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-// import MigrosAPI from "../src";
+// import { MigrosAPI } from "../src";
 
 describe('Check for User Info', () => {
 

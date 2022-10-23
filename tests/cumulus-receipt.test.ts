@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { describe, expect, test } from '@jest/globals';
-// import MigrosAPI from "../src";
+// import { MigrosAPI } from "../src";
 
 describe('Check for Migros Cumulus Receipt', () => {
 	test('Retrieve Cumulus Receipt', async () => {
