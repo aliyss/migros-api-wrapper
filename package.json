@@ -17,6 +17,8 @@
 		"start:ts": "ts-node ./src/index.ts",
 		"start:dev": "nodemon",
 		"prepublish": "npm run build"
+		"postpublish": "npm run publish-npm",
+		"publish-npm": "npm publish --access public --ignore-scripts --@OWNER:registry='https://registry.npmjs.org'"
 	},
 	"author": "aliyss",
 	"license": "MIT",
