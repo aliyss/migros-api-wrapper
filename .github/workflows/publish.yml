@@ -32,7 +32,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Install packages
         run: npm install
-      - name: Npm registry authentication
-        run: npm set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
-      - name: Publish the package to Github and Npm package registries
+      - name: Publish the package to Npm package registry
         run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
