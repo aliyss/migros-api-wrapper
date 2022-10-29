@@ -1,8 +1,8 @@
 import { getRequest } from "../../utils/requests";
 
-import { MigrosApiPaths } from "../apiPaths";
+import { migrosApiPaths } from "../apiPaths";
 
-const url = MigrosApiPaths["marketablestock"].public.v1 + "/warehouses"
+const url = migrosApiPaths["marketablestock"].public.v1 + "/warehouses"
 
 export interface IProductSupplyOptions extends Record<string, any> {
 	pids: string | string[],

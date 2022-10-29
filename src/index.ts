@@ -1,4 +1,4 @@
 export { ICookies, ILoginCookies, ICumulusCookies } from "./api/interfaces/cookies";
 export { ICumulusReceiptOptions, ICumulusReceiptsOptions } from "./api/cumulus/receipts"
-export { MigrosApiPaths } from "./api/apiPaths"
+export { migrosApiPaths } from "./api/apiPaths"
 export { MigrosAPI } from "./api/MigrosAPI";

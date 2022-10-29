@@ -3,9 +3,9 @@ import { Region } from "../enums/Region";
 
 import { getRequest } from "../../utils/requests";
 
-import { MigrosApiPaths } from "../apiPaths";
+import { migrosApiPaths } from "../apiPaths";
 
-const url = MigrosApiPaths["product-display"].public.v1 + "/product-cards"
+const url = migrosApiPaths["product-display"].public.v1 + "/product-cards"
 
 export interface IProductCardsOptions extends Record<string, any> {
 	uids: string | string[],

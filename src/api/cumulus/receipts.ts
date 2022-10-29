@@ -4,12 +4,19 @@ import * as cheerio from 'cheerio';
 
 import { getRequest } from "../../utils/requests";
 
-import { MigrosApiPaths } from "../apiPaths";
+import { migrosApiPaths } from "../apiPaths";
 import { ICumulusCookies } from "../interfaces/cookies";
 import { Language } from "../enums/Language";
+import {
+	ICumulusReceiptArticle,
+	ICumulusReceiptResponse,
+	ICumulusReceiptsResponse,
+	ICumulusReceiptsResponseItem
+} from "../interfaces/receipts";
+import { Currency } from "../enums/Currency";
 
-const urlExport = MigrosApiPaths["cumulus"] + "/service/avantaReceiptExport/html"
-const urlList = MigrosApiPaths["cumulus"] + "/de/konto/kassenbons/variants/variant-1/content/04/ajaxContent/0.html"
+const urlExport = migrosApiPaths["cumulus"] + "/service/avantaReceiptExport/html"
+const urlList = migrosApiPaths["cumulus"] + "/de/konto/kassenbons/variants/variant-1/content/04/ajaxContent/0.html"
 
 export interface ICumulusReceiptOptions extends Record<string, any> {
 	receiptId: string,
@@ -21,7 +28,7 @@ const defaultCumulusReceiptOptions: ICumulusReceiptOptions = {
 	fallbackLanguage: Language.DE
 }
 
-async function getCumulusReceiptRequest(url: string, options: ICumulusReceiptOptions | Record<string, string>, cookies: ICumulusCookies): Promise<Record<string, any>> {
+async function getCumulusReceiptRequest(url: string, options: ICumulusReceiptOptions | Record<string, string>, cookies: ICumulusCookies): Promise<ICumulusReceiptResponse> {
 
 	const headers = {
 		"accept": "text/html, */*; q=0.01",
@@ -53,7 +60,7 @@ async function getCumulusReceiptRequest(url: string, options: ICumulusReceiptOpt
 	const cumulus = $("[class='cumukus pre']").text().split("\n")
 	const footer = $("[class='footer pre']").text().split("\n")
 
-	const receiptArticles: Record<string, any> = []
+	const receiptArticles: ICumulusReceiptArticle[] = []
 
 	// eslint-disable-next-line no-loops/no-loops
 	for (let i = 2; i < (articles.length-1); i++) {
@@ -81,7 +88,7 @@ async function getCumulusReceiptRequest(url: string, options: ICumulusReceiptOpt
 		},
 		total: {
 			value: parseFloat(totalCost[2]),
-			currency: totalCost[1]
+			currency: <Currency>totalCost[1]
 		},
 		payment: {
 			value: parseFloat(payment[0].trim().split(/\s\s+/)[1].trim()),
@@ -128,13 +135,13 @@ async function getCumulusReceiptRequest(url: string, options: ICumulusReceiptOpt
 	}
 }
 
-export async function getCumulusReceipt(cumulusReceiptOptions: ICumulusReceiptOptions, cookies: ICumulusCookies): Promise<any> {
+export async function getCumulusReceipt(cumulusReceiptOptions: ICumulusReceiptOptions, cookies: ICumulusCookies): Promise<ICumulusReceiptResponse> {
 	cumulusReceiptOptions = { ...defaultCumulusReceiptOptions, ...cumulusReceiptOptions }
 	return getCumulusReceiptRequest(urlExport, cumulusReceiptOptions, cookies)
 }
 
-export async function getCumulusReceiptFromUrl(url: string, cookies: ICumulusCookies): Promise<any> {
-	url = MigrosApiPaths["cumulus"] + url
+export async function getCumulusReceiptFromUrl(url: string, cookies: ICumulusCookies): Promise<ICumulusReceiptResponse> {
+	url = migrosApiPaths["cumulus"] + url
 	return getCumulusReceiptRequest(url, { }, cookies)
 }
 
@@ -157,7 +164,7 @@ const defaultCumulusReceiptsOptions: ICumulusReceiptsOptions = {
 	sort: "dateDsc"
 }
 
-async function getCumulusReceiptsRequest(url: string, options: ICumulusReceiptsOptions | Record<string, any>, cookies: ICumulusCookies): Promise<Record<string, any>[]> {
+async function getCumulusReceiptsRequest(url: string, options: ICumulusReceiptsOptions | Record<string, any>, cookies: ICumulusCookies): Promise<ICumulusReceiptsResponse> {
 
 	const headers = {
 		"accept": "text/html, */*; q=0.01",
@@ -176,7 +183,7 @@ async function getCumulusReceiptsRequest(url: string, options: ICumulusReceiptsO
 		p: options.p
 	}
 
-	const tableData: Record<string, any>[] = []
+	const tableData: ICumulusReceiptsResponseItem[] = []
 
 	// eslint-disable-next-line no-loops/no-loops,no-constant-condition
 	while (true) {
@@ -202,8 +209,8 @@ async function getCumulusReceiptsRequest(url: string, options: ICumulusReceiptsO
 					value: parseFloat(($(rowItems[4])[0].children[0] as any)["data"])
 				},
 				links: {
-					html: MigrosApiPaths["cumulus"] + ($(rowItems[1])[0].children[1] as any).attribs["data-modal-src"],
-					pdf: MigrosApiPaths["cumulus"] + ($(rowItems[1])[0].children[1] as any).attribs.href
+					html: migrosApiPaths["cumulus"] + ($(rowItems[1])[0].children[1] as any).attribs["data-modal-src"],
+					pdf: migrosApiPaths["cumulus"] + ($(rowItems[1])[0].children[1] as any).attribs.href
 				},
 				id: ($(rowItems[1])[0].children[1] as any).attribs.href.match(new RegExp(/(?<==).*?(?=&|$)/))[0]
 			})
@@ -219,7 +226,7 @@ async function getCumulusReceiptsRequest(url: string, options: ICumulusReceiptsO
 	return tableData
 }
 
-export async function getCumulusReceipts(cumulusReceiptsOptions: ICumulusReceiptsOptions, cookies: ICumulusCookies): Promise<Record<string, any>[]> {
+export async function getCumulusReceipts(cumulusReceiptsOptions: ICumulusReceiptsOptions, cookies: ICumulusCookies): Promise<ICumulusReceiptsResponse> {
 	cumulusReceiptsOptions = { ...defaultCumulusReceiptsOptions, ...cumulusReceiptsOptions }
 	return getCumulusReceiptsRequest(urlList, cumulusReceiptsOptions, cookies)
 }

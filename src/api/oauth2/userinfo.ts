@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { getRequest } from "../../utils/requests";
 
-import { MigrosApiPaths } from "../apiPaths";
+import { migrosApiPaths } from "../apiPaths";
 import { retrieveSetCookieFromHeaders } from "../../utils/retrieveSetCookieFromHeaders";
 
-const url = MigrosApiPaths["login"] + "/oauth2/userinfo"
+const url = migrosApiPaths["login"] + "/oauth2/userinfo"
 
 async function getUserInfoRequest(url: string, token: string): Promise<Record<string, any>> {
 

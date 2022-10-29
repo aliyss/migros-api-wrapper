@@ -75,9 +75,15 @@
 			{
 				"selector": "classProperty",
 				"format": [
-					"UPPER_CASE",
 					"camelCase"
-				]
+				],
+				"prefix": [
+					"_"
+				],
+				"filter": {
+					"regex": "^[A-Z]",
+					"match": true
+				}
 			},
 			{
 				"selector": "objectLiteralProperty",
@@ -100,6 +106,12 @@
 			},
 			{
 				"selector": "classMethod",
+				"format": [
+					"camelCase"
+				]
+			},
+			{
+				"selector": "accessor",
 				"format": [
 					"camelCase"
 				]
@@ -147,7 +159,7 @@
 			{
 				"selector": "typeAlias",
 				"format": [
-					"StrictPascalCase"
+					"PascalCase"
 				]
 			},
 			{

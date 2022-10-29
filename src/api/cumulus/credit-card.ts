@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { getRequest } from "../../utils/requests";
 
-import { MigrosApiPaths } from "../apiPaths";
+import { migrosApiPaths } from "../apiPaths";
 import { ILoginCookies } from "../interfaces/cookies";
-import { retrieveSetCookieFromHeaders } from "../../utils/retrieveSetCookieFromHeaders";
 
-const url = MigrosApiPaths["login"] + "/ma/api/user/cumulus/credit-card"
+const url = migrosApiPaths["login"] + "/ma/api/user/cumulus/credit-card"
 
 async function getCumulusCreditCardRequest(url: string, cookies: ILoginCookies): Promise<Record<string, any>> {
 
@@ -27,7 +26,7 @@ async function getCumulusCreditCardRequest(url: string, cookies: ILoginCookies):
 
 	const response = await getRequest(url, {}, headers, cookies)
 
-	return { body: response.body, ['set-cookie']: retrieveSetCookieFromHeaders(response.headers['set-cookie']) }
+	return response.body
 }
 
 export async function getCumulusCreditCard(cookies: ILoginCookies): Promise<any> {

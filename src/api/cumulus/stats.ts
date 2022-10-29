@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { getRequest } from "../../utils/requests";
 
-import { MigrosApiPaths } from "../apiPaths";
+import { migrosApiPaths } from "../apiPaths";
 import { ILoginCookies } from "../interfaces/cookies";
 import { retrieveSetCookieFromHeaders } from "../../utils/retrieveSetCookieFromHeaders";
 
-const url = MigrosApiPaths["login"] + "/cumulus/dashboard/stats"
+const url = migrosApiPaths["login"] + "/cumulus/dashboard/stats"
 
 async function getCumulusStatsRequest(url: string, cookies: ILoginCookies): Promise<Record<string, any>> {
 

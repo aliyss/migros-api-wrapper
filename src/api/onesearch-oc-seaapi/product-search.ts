@@ -6,9 +6,9 @@ import { SortOrder } from "../enums/SortOrder";
 
 import { postRequest } from "../../utils/requests";
 
-import { MigrosApiPaths } from "../apiPaths";
+import { migrosApiPaths } from "../apiPaths";
 
-const url = MigrosApiPaths["onesearch-oc-seapi"].public.v4 + "/search"
+const url = migrosApiPaths["onesearch-oc-seapi"].public.v4 + "/search"
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export type IProductSearchOptions = Record<string, any>

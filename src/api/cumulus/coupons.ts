@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { postRequest } from "../../utils/requests";
 
-import { MigrosApiPaths } from "../apiPaths";
+import { migrosApiPaths } from "../apiPaths";
 import { ICumulusCookies } from "../interfaces/cookies";
 import { retrieveSetCookieFromHeaders } from "../../utils/retrieveSetCookieFromHeaders";
 
-const url = MigrosApiPaths["cumulus"] + "/service/api/coupon/activate?id=7623186011535&lang=de"
+const url = migrosApiPaths["cumulus"] + "/service/api/coupon/activate?id=7623186011535&lang=de"
 
 async function activateCumulusCouponRequest(url: string, cookies: ICumulusCookies): Promise<Record<string, any>> {
 
