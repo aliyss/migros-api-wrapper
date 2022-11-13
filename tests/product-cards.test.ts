@@ -9,7 +9,7 @@ describe('Search for a Product Card', () => {
 		}
 		const response = await MigrosAPI.products.productDisplay.getProductCards(productCardsOptions)
 		expect(response[0].name).toBe("Kochsalz");
-		expect(response[0].brand).toBe("Jura-Sel");
+		expect(response[0].product.brand).toBe("Jura-Sel");
 	});
 	test('Search for bread', async () => {
 		const productCardsOptions: IProductCardsOptions = {
@@ -17,7 +17,7 @@ describe('Search for a Product Card', () => {
 		}
 		const response = await MigrosAPI.products.productDisplay.getProductCards(productCardsOptions)
 		expect(response[0].name).toBe("Helles Weizenbrot");
-		expect(response[0].brand).toBe("M-Classic");
+		expect(response[0].product.brand).toBe("M-Classic");
 	});
 });
 
@@ -28,9 +28,9 @@ describe('Search for multiple Product Cards', () => {
 		}
 		const response = await MigrosAPI.products.productDisplay.getProductCards(productCardsOptions)
 		expect(response[0].name).toBe("Kochsalz");
-		expect(response[0].brand).toBe("Jura-Sel");
+		expect(response[0].product.brand).toBe("Jura-Sel");
 		expect(response[1].name).toBe("Speisesalz");
-		expect(response[1].brand).toBe("Jura-Sel");
+		expect(response[1].product.brand).toBe("Jura-Sel");
 	});
 	test('Search for multiple breads', async () => {
 		const productCardsOptions: IProductCardsOptions = {
@@ -38,8 +38,8 @@ describe('Search for multiple Product Cards', () => {
 		}
 		const response = await MigrosAPI.products.productDisplay.getProductCards(productCardsOptions)
 		expect(response[0].name).toBe("Helles Weizenbrot");
-		expect(response[0].brand).toBe("M-Classic");
+		expect(response[0].product.brand).toBe("M-Classic");
 		expect(response[1].name).toBe("Toastbrot");
-		expect(response[1].brand).toBe(undefined);
+		expect(response[1].product.brand).toBe(undefined);
 	});
 });

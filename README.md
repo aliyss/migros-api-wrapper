@@ -52,9 +52,10 @@ Currently following api paths are being considered:
 |  |        └── search
 |  ├── product-display
 |  |  └── public
-|  |     └── v1
-|  |        ├── product-cards
-|  |        └── product-detail
+|  |     ├── v1
+|  |     |  └── product-detail
+|  |     └── v2
+|  |        └── product-cards
 |  └── marketablestock
 |     └── public
 |        └── v1

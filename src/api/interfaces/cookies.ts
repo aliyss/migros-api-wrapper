@@ -3,7 +3,7 @@
 export type ICookies = Record<string, string>
 
 export interface ILoginCookies extends ICookies {
-	["__VCAP_ID__"]: string,
+	["__VCAP_ID__"]: string
 	["MDID"]: string
 	["JSESSIONID"]: string
 	["CSRF"]: string

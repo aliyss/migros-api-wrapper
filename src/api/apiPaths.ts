@@ -9,7 +9,8 @@ export const migrosApiPaths = {
 	},
 	['product-display']: {
 		public: {
-			v1: defaultMigrosApiPath + '/product-display/public/v1'
+			v1: defaultMigrosApiPath + '/product-display/public/v1',
+			v2: defaultMigrosApiPath + '/product-display/public/v2'
 		}
 	},
 	'marketablestock': {
@@ -18,5 +19,8 @@ export const migrosApiPaths = {
 		}
 	},
 	'login': 'https://login.migros.ch',
-	'cumulus': 'https://cumulus.migros.ch'
+	'cumulus': 'https://cumulus.migros.ch',
+	'mobile-app': 'https://mobile-app.migros.ch',
+	'mobile-api-gateway': 'https://mobile-api-gateway.shop.migros.ch',
+	'subito-go': 'https://subito-go.migros.ch'
 }

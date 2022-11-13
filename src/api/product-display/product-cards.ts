@@ -5,7 +5,7 @@ import { getRequest } from "../../utils/requests";
 
 import { migrosApiPaths } from "../apiPaths";
 
-const url = migrosApiPaths["product-display"].public.v1 + "/product-cards"
+const url = migrosApiPaths["product-display"].public.v2 + "/product-cards"
 
 export interface IProductCardsOptions extends Record<string, any> {
 	uids: string | string[],
