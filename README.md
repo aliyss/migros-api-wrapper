@@ -5,6 +5,10 @@ Making the api of migros more accessible to the public.
 The developers of this module are in no way endorsed by or affiliated with
 Migros Online AG, or any associated subsidiaries, logos or trademarks.
 
+## Up-to-date
+The api of Migros is constantly changing in small ways. Feel free to open an issue if you encounter stuff not working.
+I don't use it daily as of yet, but like to keep stuff up-to-date. Otherwise check my bio for the discord server.
+
 ## Installation
 ```npm install --save migros-api-wrapper```
 
@@ -17,8 +21,10 @@ main();
 
 async function main() {
 	// Search for products matching a certain string.
+    const guestInfo = await MigrosAPI.account.oauth2.getGuestToken();
 	const responseProductSearch = await MigrosAPI.products.productSearch.searchProduct({
-		query: "cooking salt"
+        query: "cooking salt",
+        { leshopch: guestInfo.token }
 	})
 	console.log(responseProductSearch)
 
@@ -37,7 +43,7 @@ async function main() {
 	// Get security options of your MigrosAPI Account
 	const securityOptions = await MigrosAPI.account.security.getOptions(loginCookies)
 	console.log(securityOptions)
-} 
+}
 ```
 
 ## API Paths
@@ -48,11 +54,11 @@ Currently following api paths are being considered:
 ├── www.migros.ch
 |  ├── onesearch-oc-seaapi
 |  |  └── public
-|  |     └── v4
+|  |     └── v5
 |  |        └── search
 |  ├── product-display
 |  |  └── public
-|  |     ├── v1
+|  |     ├── v2
 |  |     |  └── product-detail
 |  |     └── v2
 |  |        └── product-cards

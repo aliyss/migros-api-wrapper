@@ -1,38 +1,48 @@
 import { getRequest } from "../../utils/requests";
 
 import { migrosApiPaths } from "../apiPaths";
+import { IMigrosNecessaryHeaders } from "../interfaces/headers";
 
-const url = migrosApiPaths["marketablestock"].public.v1 + "/warehouses"
+const url = migrosApiPaths["marketablestock"].public.v1 + "/warehouses";
 
 export interface IProductSupplyOptions extends Record<string, any> {
-	pids: string | string[],
-	warehouses: number
+  pids: string | string[];
+  warehouses: number;
 }
 
 const defaultProductSupplyOptions: IProductSupplyOptions = {
-	pids: "",
-	warehouses: 0
+  pids: "",
+  warehouses: 0,
+};
+
+async function getProductCardsRequest(
+  url: string,
+  options: IProductSupplyOptions,
+  headers: IMigrosNecessaryHeaders,
+): Promise<Record<string, any>> {
+  if (Array.isArray(options.pids)) {
+    options.pids = options.pids.join(",");
+  }
+
+  url += `/${options.warehouses}/products/${options.pids}`;
+
+  const necessary_headers = {
+    accept: "application/json, text/plain, *!/!*",
+    ...headers,
+  };
+
+  const response = await getRequest(url, {}, necessary_headers);
+
+  return response.body;
 }
 
-async function getProductCardsRequest(url: string, options: IProductSupplyOptions, token: string): Promise<Record<string, any>> {
-
-	if (Array.isArray(options.pids)) {
-		options.pids = options.pids.join(",")
-	}
-
-	url += `/${options.warehouses}/products/${options.pids}`
-
-	const headers = {
-		'accept': "application/json, text/plain, */*",
-		'leshopch': token
-	}
-
-	const response = await getRequest(url, {}, headers)
-
-	return response.body
-}
-
-export async function getProductSupply(productSupplyOptions: IProductSupplyOptions, token: string): Promise<any> {
-	productSupplyOptions = { ...defaultProductSupplyOptions, ...productSupplyOptions }
-	return getProductCardsRequest(url, productSupplyOptions, token)
+export async function getProductSupply(
+  productSupplyOptions: IProductSupplyOptions,
+  headers: IMigrosNecessaryHeaders,
+): Promise<any> {
+  productSupplyOptions = {
+    ...defaultProductSupplyOptions,
+    ...productSupplyOptions,
+  };
+  return getProductCardsRequest(url, productSupplyOptions, headers);
 }
