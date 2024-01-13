@@ -1,31 +1,44 @@
 import { appendParametersToUrl } from "./appendParametersToUrl";
-import superagent, { SuperAgentRequest } from "superagent";
 import { addCookieToHeaders } from "./addCookieToHeaders";
 
-export function getRequest(
+export async function getRequest(
   url: string,
   options: Record<string, string>,
   headers: Record<string, string> = {},
   cookies: Record<string, string> = {},
-): SuperAgentRequest {
+): Promise<Response> {
   url = appendParametersToUrl(url, options);
   headers = addCookieToHeaders(headers, cookies);
 
-  return superagent.get(url).set(headers).send();
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: headers,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
 }
 
-export function postRequest(
+export async function postRequest(
   url: string,
   body: Record<string, any> | null,
   options: Record<string, string>,
   headers: Record<string, string> = {},
   cookies: Record<string, string> = {},
-): SuperAgentRequest {
+): Promise<Response> {
   url = appendParametersToUrl(url, options);
   headers = addCookieToHeaders(headers, cookies);
 
-  return superagent
-    .post(url)
-    .set(headers)
-    .send(body || undefined);
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(body) || undefined,
+      headers: headers,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
 }

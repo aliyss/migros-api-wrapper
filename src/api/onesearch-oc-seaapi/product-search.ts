@@ -51,7 +51,7 @@ async function postProductSearchRequest(
 
   const response = await postRequest(url, body, options, necessary_headers);
 
-  return response.body;
+  return await response.json();
 }
 
 export async function postProductSearch(

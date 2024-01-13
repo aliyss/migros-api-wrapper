@@ -1,4 +1,5 @@
 import { getRequest } from "../../utils/requests";
+import { retrieveSetCookieFromHeaders } from "../../utils/retrieveSetCookieFromHeaders";
 
 import { migrosApiPaths } from "../apiPaths";
 
@@ -22,9 +23,11 @@ async function getGuestTokenRequest(
 
   const response = await getRequest(url, options, necessary_headers);
 
+  retrieveSetCookieFromHeaders(response.headers);
+
   return {
-    token: response.headers["leshopch"],
-    body: response.body,
+    token: response.headers.get("leshopch"),
+    body: await response.json(),
   };
 }
 

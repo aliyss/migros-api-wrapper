@@ -38,7 +38,7 @@ async function getProductCardsRequest(
 
   const response = await getRequest(url, options, necessary_headers);
 
-  return response.body;
+  return await response.json();
 }
 
 export async function getProductCards(
