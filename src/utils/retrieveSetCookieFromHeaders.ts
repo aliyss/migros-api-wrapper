@@ -1,5 +1,3 @@
-import { Headers } from "../types/Headers";
-
 export function retrieveSetCookieFromHeaders(
   headersCookies: Headers,
 ): Record<string, string> {

@@ -25,9 +25,7 @@ async function getUserInfoRequest(
 
   return {
     body: await response.json(),
-    ["set-cookie"]: retrieveSetCookieFromHeaders({
-      headersCookies: response.headers,
-    }),
+    ["set-cookie"]: retrieveSetCookieFromHeaders(response.headers),
   };
 }
 

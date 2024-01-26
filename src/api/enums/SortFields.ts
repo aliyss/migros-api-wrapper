@@ -1,4 +1,4 @@
 export enum SortFields {
-	NORMALIZEDUNIT = "normalizedUnit",
-	EFFECTIVEUNITPRICE = "effectiveUnitPrice"
+  NORMALIZEDUNIT = "normalizedUnit",
+  EFFECTIVEUNITPRICE = "effectiveUnitPrice",
 }

@@ -1,4 +1,4 @@
 export enum Region {
-	NATIONAL = "national",
-	GMOS = "gmos"
+  NATIONAL = "national",
+  GMOS = "gmos",
 }

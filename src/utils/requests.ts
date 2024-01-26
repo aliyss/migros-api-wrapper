@@ -1,7 +1,6 @@
 import { appendParametersToUrl } from "./appendParametersToUrl";
 import { addCookieToHeaders } from "./addCookieToHeaders";
 import { ICookies } from "../api/interfaces/cookies";
-import { Response } from "../types/Response";
 
 export async function getRequest(
   url: string,

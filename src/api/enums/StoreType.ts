@@ -1,3 +1,3 @@
 export enum StoreType {
-	OFFLINE = "OFFLINE"
+  OFFLINE = "OFFLINE",
 }

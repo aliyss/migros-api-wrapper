@@ -23,10 +23,11 @@
         }
       }
     ],
+    "comma-dangle": "off",
     "@typescript-eslint/explicit-module-boundary-types": ["error"],
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-object": "off",
-    "@typescript-eslint/comma-dangle": ["off"],
+    "@typescript-eslint/comma-dangle": ["error", "only-multiline"],
     "@typescript-eslint/default-param-last": "error",
     "@typescript-eslint/naming-convention": [
       "error",

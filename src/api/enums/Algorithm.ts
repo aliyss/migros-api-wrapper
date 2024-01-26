@@ -1,3 +1,3 @@
 export enum Algorithm {
-	"DEFAULT" = "DEFAULT"
+  "DEFAULT" = "DEFAULT",
 }
