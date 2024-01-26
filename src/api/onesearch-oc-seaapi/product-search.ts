@@ -43,13 +43,14 @@ async function postProductSearchRequest(
   options: IProductSearchOptions,
   headers: IMigrosNecessaryHeaders,
 ): Promise<Record<string, any>> {
-  const necessary_headers = {
+  const necessaryHeaders = {
     accept: "application/json, text/plain, *!/!*",
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     "content-type": "application/json",
     ...headers,
   };
 
-  const response = await postRequest(url, body, options, necessary_headers);
+  const response = await postRequest(url, body, options, necessaryHeaders);
 
   return await response.json();
 }

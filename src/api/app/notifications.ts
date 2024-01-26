@@ -50,7 +50,9 @@ async function getAllNotificationsRequest(
 
   return {
     body: await response.json(),
-    ["set-cookie"]: retrieveSetCookieFromHeaders(response.headers),
+    ["set-cookie"]: retrieveSetCookieFromHeaders({
+      headersCookies: response.headers,
+    }),
   };
 }
 

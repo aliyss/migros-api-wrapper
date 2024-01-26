@@ -31,12 +31,12 @@ async function getProductCardsRequest(
     options.uids = options.uids.join(",");
   }
 
-  const necessary_headers = {
+  const necessaryHeaders = {
     accept: "application/json, text/plain, *!/!*",
     ...headers,
   };
 
-  const response = await getRequest(url, options, necessary_headers);
+  const response = await getRequest(url, options, necessaryHeaders);
 
   return await response.json();
 }

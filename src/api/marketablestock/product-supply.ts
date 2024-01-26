@@ -26,12 +26,12 @@ async function getProductCardsRequest(
 
   url += `/${options.warehouses}/products/${options.pids}`;
 
-  const necessary_headers = {
+  const necessaryHeaders = {
     accept: "application/json, text/plain, *!/!*",
     ...headers,
   };
 
-  const response = await getRequest(url, {}, necessary_headers);
+  const response = await getRequest(url, {}, necessaryHeaders);
 
   return await response.json();
 }

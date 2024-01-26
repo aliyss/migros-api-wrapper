@@ -7,11 +7,11 @@ describe("Check for a Products Supply", () => {
     const guestInfo = await MigrosAPI.account.oauth2.getGuestToken();
     const productSupplyOptions: IProductSupplyOptions = {
       pids: "4963004",
-      warehouses: 1,
+      warehouses: 1
     };
     const response = await MigrosAPI.products.productStock.getProductSupply(
       productSupplyOptions,
-      { leshopch: guestInfo.token },
+      { leshopch: guestInfo.token }
     );
     expect(response[0].infiniteSupply).toBe(false);
     expect(response[0].pid).toBe(4963004);
@@ -20,11 +20,11 @@ describe("Check for a Products Supply", () => {
     const guestInfo = await MigrosAPI.account.oauth2.getGuestToken();
     const productSupplyOptions: IProductSupplyOptions = {
       pids: "4979976",
-      warehouses: 1,
+      warehouses: 1
     };
     const response = await MigrosAPI.products.productStock.getProductSupply(
       productSupplyOptions,
-      { leshopch: guestInfo.token },
+      { leshopch: guestInfo.token }
     );
     expect(response[0].infiniteSupply).toBe(false);
     expect(response[0].pid).toBe(4979976);
@@ -36,11 +36,11 @@ describe("Check for multiple Products Supplies", () => {
     const guestInfo = await MigrosAPI.account.oauth2.getGuestToken();
     const productSupplyOptions: IProductSupplyOptions = {
       pids: ["4963004", "4979976"],
-      warehouses: 1,
+      warehouses: 1
     };
     const response = await MigrosAPI.products.productStock.getProductSupply(
       productSupplyOptions,
-      { leshopch: guestInfo.token },
+      { leshopch: guestInfo.token }
     );
     expect(response[0].infiniteSupply).toBe(false);
     expect(response[0].pid).toBe(4963004);

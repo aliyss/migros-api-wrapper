@@ -8,7 +8,7 @@ const url = migrosApiPaths["login"] + "/ma/api/user/cumulus/credit-card";
 
 async function getCumulusCreditCardRequest(
   url: string,
-  cookies: ILoginCookies,
+  cookies: ILoginCookies
 ): Promise<Record<string, any>> {
   const headers = {
     accept: "application/json, text/javascript, */*; q=0.01",
@@ -24,7 +24,7 @@ async function getCumulusCreditCardRequest(
     "x-csrf-token": cookies.CSRF,
     "x-requested-with": "XMLHttpRequest",
     Referer: "https://login.migros.ch/cumulus/dashboard",
-    "Referrer-Policy": "same-origin",
+    "Referrer-Policy": "same-origin"
   };
 
   const response = await getRequest(url, {}, headers, cookies);
@@ -33,7 +33,7 @@ async function getCumulusCreditCardRequest(
 }
 
 export async function getCumulusCreditCard(
-  cookies: ILoginCookies,
+  cookies: ILoginCookies
 ): Promise<any> {
   return getCumulusCreditCardRequest(url, cookies);
 }

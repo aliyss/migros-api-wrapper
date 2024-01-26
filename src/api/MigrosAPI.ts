@@ -8,17 +8,17 @@ import { IProductSupplyOptions } from "./marketablestock/product-supply";
 import { ICumulusCookies, ILoginCookies } from "./interfaces/cookies";
 import {
   ICumulusReceiptOptions,
-  ICumulusReceiptsOptions,
+  ICumulusReceiptsOptions
 } from "./cumulus/receipts";
 import { combineCookies } from "../utils/combineCookies";
 import {
   ICumulusReceiptResponse,
-  ICumulusReceiptsResponse,
+  ICumulusReceiptsResponse
 } from "./interfaces/receipts";
 import { IProductCardsOptions } from "./product-display/product-cards";
 import {
   IProductSearchBody,
-  IProductSearchOptions,
+  IProductSearchOptions
 } from "./onesearch-oc-seaapi/product-search";
 
 export class MigrosAPI {
@@ -65,57 +65,57 @@ export class MigrosAPI {
   static products = {
     productStock: marketableStock,
     productDisplay: productDisplay,
-    productSearch: productSearch,
+    productSearch: productSearch
   };
   static account = {
     oauth2: oauth2,
     security: security,
-    cumulus: cumulus,
+    cumulus: cumulus
   };
 
   products = {
     productStock: {
       getProductSupply: async (
         productSupplyOptions: IProductSupplyOptions,
-        token: string | undefined = this.leShopToken,
+        token: string | undefined = this.leShopToken
       ): Promise<any> => {
         if (!token) {
           throw Error("LeShop Token is undefined");
         }
         return await marketableStock.getProductSupply(productSupplyOptions, {
-          leshopch: token,
+          leshopch: token
         });
-      },
+      }
     },
     productDisplay: {
       getProductCards: async (
         productCardOptions: IProductCardsOptions,
-        token: string | undefined = this.leShopToken,
+        token: string | undefined = this.leShopToken
       ): Promise<any> => {
         if (!token) {
           throw Error("LeShop Token is undefined");
         }
         return await productDisplay.getProductCards(productCardOptions, {
-          leshopch: token,
+          leshopch: token
         });
       },
       getProductDetails: async (
         productSupplyOptions: IProductSupplyOptions,
-        token: string | undefined = this.leShopToken,
+        token: string | undefined = this.leShopToken
       ): Promise<any> => {
         if (!token) {
           throw Error("LeShop Token is undefined");
         }
         return await productDisplay.getProductDetails(productSupplyOptions, {
-          leshopch: token,
+          leshopch: token
         });
-      },
+      }
     },
     productSearch: {
       searchProduct: async (
         productSearchBody: IProductSearchBody,
         productSearchOptions?: IProductSearchOptions,
-        token: string | undefined = this.leShopToken,
+        token: string | undefined = this.leShopToken
       ): Promise<any> => {
         if (!token) {
           throw Error("LeShop Token is undefined");
@@ -123,12 +123,12 @@ export class MigrosAPI {
         return await productSearch.searchProduct(
           productSearchBody,
           {
-            leshopch: token,
+            leshopch: token
           },
-          productSearchOptions,
+          productSearchOptions
         );
-      },
-    },
+      }
+    }
   };
 
   account = {
@@ -139,17 +139,17 @@ export class MigrosAPI {
         return await guestInfo;
       },
       getUserInfo: async (
-        token: string | undefined = this.cumulusToken,
+        token: string | undefined = this.cumulusToken
       ): Promise<any> => {
         if (!token) {
           throw Error("Cumulus Token is undefined");
         }
         return await oauth2.getUserInfo(token);
-      },
+      }
     },
     security: {
       getOptions: async (
-        cookies: ILoginCookies | undefined = this.loginCookies,
+        cookies: ILoginCookies | undefined = this.loginCookies
       ): Promise<any> => {
         if (!cookies) {
           throw Error("Login Cookies are undefined");
@@ -160,7 +160,7 @@ export class MigrosAPI {
         return body;
       },
       getPaymentDevices: async (
-        cookies: ILoginCookies | undefined = this.loginCookies,
+        cookies: ILoginCookies | undefined = this.loginCookies
       ): Promise<any> => {
         if (!cookies) {
           throw Error("Login Cookies are undefined");
@@ -169,11 +169,11 @@ export class MigrosAPI {
           await security.getPaymentDevices(cookies);
         this.loginCookies = <ILoginCookies>combineCookies(cookies, setCookie);
         return body;
-      },
+      }
     },
     cumulus: {
       getCumulusStats: async (
-        cookies: ILoginCookies | undefined = this.loginCookies,
+        cookies: ILoginCookies | undefined = this.loginCookies
       ): Promise<any> => {
         if (!cookies) {
           throw Error("Login Cookies are undefined");
@@ -186,35 +186,41 @@ export class MigrosAPI {
       getCumulusReceipt: async (
         cumulusReceiptOptions: ICumulusReceiptOptions,
         cookies: ICumulusCookies | undefined = this.cumulusCookies,
-      ): Promise<ICumulusReceiptResponse> => {
+        htmlOnly = false
+      ): Promise<ICumulusReceiptResponse | string> => {
         if (!cookies) {
           throw Error("Cumulus Cookies are undefined");
         }
-        return await cumulus.getCumulusReceipt(cumulusReceiptOptions, cookies);
+        return await cumulus.getCumulusReceipt(
+          cumulusReceiptOptions,
+          cookies,
+          htmlOnly
+        );
       },
       getCumulusReceiptFromUrl: async (
         url: string,
         cookies: ICumulusCookies | undefined = this.cumulusCookies,
-      ): Promise<ICumulusReceiptResponse> => {
+        htmlOnly = false
+      ): Promise<ICumulusReceiptResponse | string> => {
         if (!cookies) {
           throw Error("Cumulus Cookies are undefined");
         }
-        return await cumulus.getCumulusReceiptFromUrl(url, cookies);
+        return await cumulus.getCumulusReceiptFromUrl(url, cookies, htmlOnly);
       },
       getCumulusReceipts: async (
         cumulusReceiptsOptions: ICumulusReceiptsOptions,
-        cookies: ICumulusCookies | undefined = this.cumulusCookies,
+        cookies: ICumulusCookies | undefined = this.cumulusCookies
       ): Promise<ICumulusReceiptsResponse> => {
         if (!cookies) {
           throw Error("Cumulus Cookies are undefined");
         }
         return await cumulus.getCumulusReceipts(
           cumulusReceiptsOptions,
-          cookies,
+          cookies
         );
       },
       getCumulusPrincipal: async (
-        cookies: ILoginCookies | undefined = this.loginCookies,
+        cookies: ILoginCookies | undefined = this.loginCookies
       ): Promise<any> => {
         if (!cookies) {
           throw Error("Login Cookies are undefined");
@@ -225,7 +231,7 @@ export class MigrosAPI {
         return body;
       },
       getCumulusServicesSmall: async (
-        cookies: ILoginCookies | undefined = this.loginCookies,
+        cookies: ILoginCookies | undefined = this.loginCookies
       ): Promise<any> => {
         if (!cookies) {
           throw Error("Login Cookies are undefined");
@@ -236,7 +242,7 @@ export class MigrosAPI {
         return body;
       },
       getCumulusPaymentSites: async (
-        cookies: ILoginCookies | undefined = this.loginCookies,
+        cookies: ILoginCookies | undefined = this.loginCookies
       ): Promise<any> => {
         if (!cookies) {
           throw Error("Login Cookies are undefined");
@@ -247,7 +253,7 @@ export class MigrosAPI {
         return body;
       },
       getCumulusCreditCard: async (
-        cookies: ILoginCookies | undefined = this.loginCookies,
+        cookies: ILoginCookies | undefined = this.loginCookies
       ): Promise<any> => {
         if (!cookies) {
           throw Error("Login Cookies are undefined");
@@ -258,7 +264,7 @@ export class MigrosAPI {
         return body;
       },
       getCumulusHousehold: async (
-        cookies: ILoginCookies | undefined = this.loginCookies,
+        cookies: ILoginCookies | undefined = this.loginCookies
       ): Promise<any> => {
         if (!cookies) {
           throw Error("Login Cookies are undefined");
@@ -269,7 +275,7 @@ export class MigrosAPI {
         return body;
       },
       getCumulusInvoice: async (
-        cookies: ILoginCookies | undefined = this.loginCookies,
+        cookies: ILoginCookies | undefined = this.loginCookies
       ): Promise<any> => {
         if (!cookies) {
           throw Error("Login Cookies are undefined");
@@ -278,7 +284,7 @@ export class MigrosAPI {
           await cumulus.getCumulusInvoice(cookies);
         this.loginCookies = <ILoginCookies>combineCookies(cookies, setCookie);
         return body;
-      },
-    },
+      }
+    }
   };
 }

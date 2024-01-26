@@ -9,7 +9,7 @@ const url = migrosApiPaths["login"] + "/cumulus/dashboard/stats";
 
 async function getCumulusStatsRequest(
   url: string,
-  cookies: ILoginCookies,
+  cookies: ILoginCookies
 ): Promise<Record<string, any>> {
   const headers = {
     accept: "application/json, text/javascript, */*; q=0.01",
@@ -25,14 +25,14 @@ async function getCumulusStatsRequest(
     "x-csrf-token": cookies.CSRF,
     "x-requested-with": "XMLHttpRequest",
     Referer: "https://login.migros.ch/cumulus/dashboard",
-    "Referrer-Policy": "same-origin",
+    "Referrer-Policy": "same-origin"
   };
 
   const response = await getRequest(url, {}, headers, cookies);
 
   return {
     body: await response.json(),
-    ["set-cookie"]: retrieveSetCookieFromHeaders(response.headers),
+    ["set-cookie"]: retrieveSetCookieFromHeaders(response.headers)
   };
 }
 

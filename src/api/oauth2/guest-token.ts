@@ -17,11 +17,11 @@ async function getGuestTokenRequest(
   url: string,
   options: IAuthenticationOptions,
 ): Promise<Record<string, any>> {
-  const necessary_headers = {
+  const necessaryHeaders = {
     accept: "application/json, text/plain, *!/!*",
   };
 
-  const response = await getRequest(url, options, necessary_headers);
+  const response = await getRequest(url, options, necessaryHeaders);
 
   retrieveSetCookieFromHeaders(response.headers);
 
