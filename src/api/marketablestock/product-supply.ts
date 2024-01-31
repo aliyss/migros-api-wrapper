@@ -5,7 +5,7 @@ import { IMigrosNecessaryHeaders } from "../interfaces/headers";
 
 const url = migrosApiPaths["marketablestock"].public.v1 + "/warehouses";
 
-export interface IProductSupplyOptions extends Record<string, any> {
+export interface IProductSupplyOptions {
   pids: string | string[];
   warehouses: number;
 }

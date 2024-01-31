@@ -1,18 +1,17 @@
+import { Language } from "./api/enums/Language";
+import { RecipeSearchUuid } from "./api/enums/migusto/RecipeUuids";
 import { MigrosAPI } from "./api/MigrosAPI";
-import { IProductSupplyOptions } from "./api/marketablestock/product-supply";
+import { IRecipeSearchOptions } from "./api/migusto/recipe-search";
 
 (async () => {
-  const guestInfo = await MigrosAPI.account.oauth2.getGuestToken();
-  const productSearchBody: IProductSupplyOptions = {
-    pids: "4963004",
-    warehouses: 1
+  const recipeSearchOptions: IRecipeSearchOptions = {
+    language: Language.DE,
+    uuids: [
+      RecipeSearchUuid.COURSE_MAINDISH,
+      RecipeSearchUuid.TAG_QUICKANDEASY,
+      RecipeSearchUuid.TAG_BURGER,
+    ],
   };
-  const response = await MigrosAPI.products.productStock.getProductSupply(
-    productSearchBody,
-    {
-      leshopch: guestInfo.token
-    }
-  );
-
-  console.log(response);
+  const response = await MigrosAPI.migusto.recipeSearch(recipeSearchOptions);
+  console.log(response.recipes.map((x) => x.title + " " + x.id));
 })();
