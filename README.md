@@ -101,6 +101,8 @@ Currently following api paths are being considered:
 |     └── api
 |        └── coupon
 |           └── activate
+├── migusto.migros.ch
+|  └── recipes
 ├── mobile-app.migros.ch (not yet implemented)
 |  └── prepare
 |     └── shl
