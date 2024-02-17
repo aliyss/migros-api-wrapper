@@ -24,8 +24,8 @@ async function main() {
     const guestInfo = await MigrosAPI.account.oauth2.getGuestToken();
 	const responseProductSearch = await MigrosAPI.products.productSearch.searchProduct({
         query: "cooking salt",
-        { leshopch: guestInfo.token }
-	})
+    },
+    { leshopch: guestInfo.token })
 	console.log(responseProductSearch)
 
 	// Certain API Calls need cookies to be accessed.
