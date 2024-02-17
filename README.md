@@ -26,11 +26,11 @@ async function main() {
         query: "cooking salt",
     },
     { leshopch: guestInfo.token })
-	console.log(responseProductSearch)
+    console.log(responseProductSearch)
 
-	// Certain API Calls need cookies to be accessed.
-	// For more accessible options and automatic logins check the IamQuiteHungry Repository: https://github.com/Aliyss/IAmQuiteHungry
-	const loginCookies: ILoginCookies = {
+    // Certain API Calls need cookies to be accessed.
+    // For more accessible options and automatic logins check the IamQuiteHungry Repository: https://github.com/Aliyss/IAmQuiteHungry
+    const loginCookies: ILoginCookies = {
 		__VCAP_ID__: "",
 		MDID: "",
 		JSESSIONID: "",
