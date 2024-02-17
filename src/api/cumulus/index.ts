@@ -11,8 +11,10 @@ import { getCumulusPaymentSites } from "./payment-sites";
 import { getCumulusCreditCard } from "./credit-card";
 import { getCumulusHousehold } from "./household";
 import { getCumulusInvoice } from "./invoice";
+import { getCumulusSession } from "./session";
 
 export const cumulus = {
+  getCumulusSession: getCumulusSession,
   getCumulusStats: getCumulusStats,
   getCumulusReceipt: getCumulusReceipt,
   getCumulusReceiptFromUrl: getCumulusReceiptFromUrl,
