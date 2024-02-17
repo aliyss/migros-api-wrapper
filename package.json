@@ -1,6 +1,6 @@
 {
   "name": "migros-api-wrapper",
-  "version": "1.1.13",
+  "version": "1.1.14",
   "description": "Making the api of migros more accessible to the public.",
   "keywords": [
     "migros",

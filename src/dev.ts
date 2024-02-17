@@ -1,17 +1,10 @@
-import { Language } from "./api/enums/Language";
-import { RecipeSearchUuid } from "./api/enums/migusto/RecipeUuids";
 import { MigrosAPI } from "./api/MigrosAPI";
-import { IRecipeSearchOptions } from "./api/migusto/recipe-search";
+import { IRecipeDetailOptions } from "./api/migusto/recipe-details";
 
 (async () => {
-  const recipeSearchOptions: IRecipeSearchOptions = {
-    language: Language.DE,
-    uuids: [
-      RecipeSearchUuid.COURSE_MAINDISH,
-      RecipeSearchUuid.TAG_QUICKANDEASY,
-      RecipeSearchUuid.TAG_BURGER,
-    ],
+  const recipeSearchOptions: IRecipeDetailOptions = {
+    slug: "lamingtons",
   };
-  const response = await MigrosAPI.migusto.recipeSearch(recipeSearchOptions);
-  console.log(response.recipes.map((x) => x.title + " " + x.id));
+  const response = await MigrosAPI.migusto.recipeDetails(recipeSearchOptions);
+  console.log(response);
 })();

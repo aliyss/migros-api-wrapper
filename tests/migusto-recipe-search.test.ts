@@ -1,3 +1,5 @@
+import { describe, expect, test } from "@jest/globals";
+
 import { MigrosAPI } from "../src";
 import { Language } from "../src/api/enums/Language";
 import { RecipeSearchUuid } from "../src/api/enums/migusto/RecipeUuids";

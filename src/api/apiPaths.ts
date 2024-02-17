@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 const defaultMigrosApiPath = "https://www.migros.ch";
-const defaultMigustoApiPath = "https://migusto.migros.ch/.rest";
+const defaultMigustoApiPath = "https://migusto.migros.ch";
 
 export const migrosApiPaths = {
   ["onesearch-oc-seapi"]: {
@@ -32,8 +32,12 @@ export const migrosApiPaths = {
   },
   migusto: {
     recipes: {
-      v1: defaultMigustoApiPath + "/recipes/v1",
+      v1: defaultMigustoApiPath + "/.rest/recipes/v1",
     },
+    recipeProducts: {
+      v1: defaultMigustoApiPath + "/.rest/recipeProducts/v1",
+    },
+    recipeDetails: defaultMigustoApiPath,
   },
   login: "https://login.migros.ch",
   cumulus: "https://cumulus.migros.ch",

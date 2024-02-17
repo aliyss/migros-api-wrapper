@@ -75,6 +75,8 @@ export class MigrosAPI {
   };
   static migusto = {
     recipeSearch: migusto.recipeSearch,
+    recipeProducts: migusto.recipeProducts,
+    recipeDetails: migusto.recipeDetails,
   };
 
   products = {
