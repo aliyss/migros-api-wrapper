@@ -20,7 +20,7 @@ import { MigrosAPI, ILoginCookies } from "migros-api-wrapper";
 main();
 
 async function main() {
-	// Search for products matching a certain string.
+    // Search for products matching a certain string.
     const guestInfo = await MigrosAPI.account.oauth2.getGuestToken();
 	const responseProductSearch = await MigrosAPI.products.productSearch.searchProduct({
         query: "cooking salt",
