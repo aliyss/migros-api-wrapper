@@ -5,6 +5,7 @@ const defaultMigustoApiPath = "https://migusto.migros.ch";
 export const migrosApiPaths = {
   ["onesearch-oc-seapi"]: {
     public: {
+      v3: defaultMigrosApiPath + "/onesearch-oc-seaapi/public/v3",
       v4: defaultMigrosApiPath + "/onesearch-oc-seaapi/public/v4",
       v5: defaultMigrosApiPath + "/onesearch-oc-seaapi/public/v5",
     },
