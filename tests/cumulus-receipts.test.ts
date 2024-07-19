@@ -1,25 +1,27 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import { describe, expect, test } from '@jest/globals';
-// import { MigrosAPI } from "../src";
+import { describe, expect, test } from "@jest/globals";
+import { MigrosAPI } from "../src";
+import * as dotenv from "dotenv";
+import path from "path";
 
-describe('Check for Migros Cumulus Receipts', () => {
-	test('Retrieve Cumulus Receipts', async () => {
-		/*
-		const response = await MigrosAPI.account.cumulus.getCumulusReceipts({
-			from: new Date("01.04.2022"),
-			to: new Date()
-		}, {
-			"BIGipServerpool_shared_migros.ch_80": ".",
-			"cookie-banner-acceptance-state": ".",
-			"mo-fulfilmentOption": ".",
-			"mo-lang": ".",
-			"mo-securityContext": ".",
-			"mo-sidebarsState": ".",
-			JSESSIONID: ".",
-			REALPERSON_SESSION: "."
-		})
-		 */
-
-		expect(null).toBe(null)
-	});
+describe("Check for Migros Cumulus Receipts", () => {
+  test("Retrieve Cumulus Receipts", async () => {
+    dotenv.config({ path: path.join(__dirname, "../.env") });
+    if (!process.env.CUMULUS_JSESSIONID || !process.env.CUMULUS_INGRESSCOOKIE) {
+      console.log("Please provide JSESSIONID and INGRESSCOOKIE in .env");
+      return;
+    }
+    const responseReceipts = await MigrosAPI.account.cumulus.getCumulusReceipts(
+      {
+        from: new Date("01.12.2023"),
+        to: new Date(),
+      },
+      {
+        ["cookie-banner-acceptance-state"]: "true",
+        JSESSIONID: process.env.CUMULUS_JSESSIONID,
+        INGRESSCOOKIE: process.env.CUMULUS_INGRESSCOOKIE,
+      },
+    );
+    expect(responseReceipts).toBeInstanceOf(Array);
+  });
 });
+
