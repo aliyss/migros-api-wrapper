@@ -49,6 +49,7 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.4.5",
     "pino": "^8.6.1",
     "pino-pretty": "^9.1.1"
   }

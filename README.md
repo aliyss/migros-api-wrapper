@@ -22,7 +22,7 @@ main();
 async function main() {
     // Search for products matching a certain string.
     const guestInfo = await MigrosAPI.account.oauth2.getGuestToken();
-	const responseProductSearch = await MigrosAPI.products.productSearch.searchProduct({
+    const responseProductSearch = await MigrosAPI.products.productSearch.searchProduct({
         query: "cooking salt",
     },
     { leshopch: guestInfo.token })
@@ -40,9 +40,9 @@ async function main() {
 		hl: "",
 		TS012f1684: ""
 	}
-	// Get security options of your MigrosAPI Account
-	const securityOptions = await MigrosAPI.account.security.getOptions(loginCookies)
-	console.log(securityOptions)
+    // Get security options of your MigrosAPI Account
+    const securityOptions = await MigrosAPI.account.security.getOptions(loginCookies)
+    console.log(securityOptions)
 }
 ```
 
