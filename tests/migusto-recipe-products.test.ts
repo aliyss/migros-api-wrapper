@@ -12,6 +12,6 @@ describe("Search for recipe products", () => {
     };
     const response =
       await MigrosAPI.migusto.recipeProducts(recipeProductOptions);
-    expect(response.productIds).toContain("233520695510");
+    expect(response.productIds).toContain("220221000110");
   });
 });

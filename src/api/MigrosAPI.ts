@@ -21,6 +21,10 @@ import {
   IProductSearchOptions,
 } from "./onesearch-oc-seaapi/product-search";
 import { migusto } from "./migusto";
+import {
+  ICategoryListBody,
+  ICategoryListOptions,
+} from "./onesearch-oc-seaapi/category";
 
 export class MigrosAPI {
   private _leShopToken: string | undefined;
@@ -118,6 +122,22 @@ export class MigrosAPI {
       },
     },
     productSearch: {
+      categoryList: async (
+        categoryListBody: ICategoryListBody,
+        categoryListOptions?: ICategoryListOptions,
+        token: string | undefined = this.leShopToken,
+      ): Promise<any> => {
+        if (!token) {
+          throw Error("LeShop Token is undefined");
+        }
+        return await productSearch.listCategories(
+          categoryListBody,
+          {
+            leshopch: token,
+          },
+          categoryListOptions,
+        );
+      },
       searchProduct: async (
         productSearchBody: IProductSearchBody,
         productSearchOptions?: IProductSearchOptions,

@@ -24,7 +24,7 @@ export interface ICategoryListBody extends Record<string, any> {
   language?: Language;
   productIds?: string[];
   regionId?: Region;
-  requestSponsoredProducts: boolean;
+  requestSponsoredProducts?: boolean;
   sortFields?: SortFields[];
   sortOrder?: SortOrder;
 }
