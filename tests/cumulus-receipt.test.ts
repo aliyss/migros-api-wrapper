@@ -6,29 +6,38 @@ import path from "path";
 describe("Check for Migros Cumulus Receipt", () => {
   test("Retrieve Cumulus Receipt", async () => {
     dotenv.config({ path: path.join(__dirname, "../.env") });
-    if (!process.env.CUMULUS_JSESSIONID || !process.env.CUMULUS_INGRESSCOOKIE) {
+    if (
+      !process.env.CUMULUS_JSESSIONID ||
+      !(process.env.CUMULUS_VCAP_ID && process.env.CUMULUS_CSRF)
+    ) {
       console.log("Please provide JSESSIONID and INGRESSCOOKIE in .env");
       return;
     }
     const responseReceipts = await MigrosAPI.account.cumulus.getCumulusReceipts(
       {
-        from: new Date("01.12.2023"),
-        to: new Date(),
+        dateFrom: new Date("01.01.2024"),
       },
       {
         ["cookie-banner-acceptance-state"]: "true",
         JSESSIONID: process.env.CUMULUS_JSESSIONID,
-        INGRESSCOOKIE: process.env.CUMULUS_INGRESSCOOKIE,
+        // INGRESSCOOKIE: process.env.CUMULUS_INGRESSCOOKIE,
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        __VCAP_ID__: process.env.CUMULUS_VCAP_ID,
+        CSRF: process.env.CUMULUS_CSRF,
       },
     );
-    expect(responseReceipts).toBeInstanceOf(Array);
+    expect(Array.isArray(responseReceipts)).toBe(true);
+    expect(responseReceipts).not.toHaveLength(0);
     const response = await MigrosAPI.account.cumulus.getCumulusReceipt(
       {
-        receiptId: responseReceipts[0].id,
+        transactionId: responseReceipts[0].transactionId,
       },
       {
         JSESSIONID: process.env.CUMULUS_JSESSIONID,
-        INGRESSCOOKIE: process.env.CUMULUS_INGRESSCOOKIE,
+        // INGRESSCOOKIE: process.env.CUMULUS_INGRESSCOOKIE,
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        __VCAP_ID__: process.env.CUMULUS_VCAP_ID,
+        CSRF: process.env.CUMULUS_CSRF,
       },
     );
     expect(response).toHaveProperty("cumulus");

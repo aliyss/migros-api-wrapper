@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 const defaultMigrosApiPath = "https://www.migros.ch";
+const defaultMigrosAccountApiPath = "https://account.migros.ch";
 const defaultMigustoApiPath = "https://migusto.migros.ch";
 
 export const migrosApiPaths = {
@@ -14,6 +15,7 @@ export const migrosApiPaths = {
     public: {
       v1: defaultMigrosApiPath + "/product-display/public/v1",
       v2: defaultMigrosApiPath + "/product-display/public/v2",
+      v4: defaultMigrosApiPath + "/product-display/public/v4",
     },
   },
   marketablestock: {
@@ -42,6 +44,11 @@ export const migrosApiPaths = {
   },
   login: "https://login.migros.ch",
   cumulus: "https://cumulus.migros.ch",
+  account: {
+    purchases: {
+      receipts: defaultMigrosAccountApiPath + "/ma/api/user/receipt",
+    },
+  },
   "mobile-app": "https://mobile-app.migros.ch",
   "mobile-api-gateway": "https://mobile-api-gateway.shop.migros.ch",
   "subito-go": "https://subito-go.migros.ch",

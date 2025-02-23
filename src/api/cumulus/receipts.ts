@@ -10,25 +10,21 @@ import { Language } from "../enums/Language";
 import {
   ICumulusReceiptArticle,
   ICumulusReceiptResponse,
-  ICumulusReceiptsResponse,
-  ICumulusReceiptsResponseItem,
 } from "../interfaces/receipts";
 import { Currency } from "../enums/Currency";
 
-const urlExport =
-  migrosApiPaths["cumulus"] + "/service/avantaReceiptExport/html";
-const urlList =
-  migrosApiPaths["cumulus"] +
-  "/de/konto/kassenbons/variants/variant-1/content/04/ajaxContent/0.html";
+const urlExport = migrosApiPaths["account"].purchases.receipts;
+const urlList = migrosApiPaths["account"].purchases.receipts;
 
 export interface ICumulusReceiptOptions extends Record<string, any> {
-  receiptId: string;
+  transactionId: string;
   fallbackLanguage?: Language;
 }
 
 const defaultCumulusReceiptOptions: ICumulusReceiptOptions = {
-  receiptId: "",
+  transactionId: "",
   fallbackLanguage: Language.DE,
+  type: "HTML",
 };
 
 async function getCumulusReceiptRequest(
@@ -38,7 +34,13 @@ async function getCumulusReceiptRequest(
   htmlOnly: boolean,
 ): Promise<ICumulusReceiptResponse | string> {
   const headers = {
-    accept: "text/html, */*; q=0.01",
+    accept: "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-origin",
+    "X-CSRF-TOKEN": cookies.CSRF || "",
+    Referer: "https://account.migros.ch/purchases/receipts",
   };
 
   const response = await getRequest(url, options, headers, cookies);
@@ -94,7 +96,7 @@ async function getCumulusReceiptRequest(
   return {
     store: {
       cooperative: store[0].trim(),
-      outlet: store[1].trim(),
+      outlet: store[1]?.trim(),
     },
     articles: receiptArticles,
     discount: {
@@ -108,50 +110,50 @@ async function getCumulusReceiptRequest(
       currency: <Currency>totalCost[1],
     },
     payment: {
-      value: parseFloat(payment[0].trim().split(/\s\s+/)[1].trim()),
+      value: parseFloat(payment[0].trim().split(/\s\s+/)[1]?.trim()),
       type: payment[0].trim().split(/\s\s+/)[0].trim(),
       return: payment[1]
-        ? parseFloat(payment[1].trim().split(/\s\s+/)[1].trim())
+        ? parseFloat(payment[1].trim().split(/\s\s+/)[1]?.trim())
         : 0,
     },
     eft: eftPayment
       ? {
           booking: {
-            type: eftPayment[1].trim().split(/\s\s+/)[1].trim(),
-            card: eftPayment[2].trim(),
+            type: eftPayment[1]?.trim().split(/\s\s+/)[1]?.trim(),
+            card: eftPayment[2]?.trim(),
           },
           date: new Date(
-            +eftPayment[3].trim().split(/\s\s+/)[0].trim().split(".")[2],
-            +eftPayment[3].trim().split(/\s\s+/)[0].trim().split(".")[1] - 1,
-            +eftPayment[3].trim().split(/\s\s+/)[0].trim().split(".")[0],
-            +eftPayment[3].trim().split(/\s\s+/)[1].trim().split(":")[0],
-            +eftPayment[3].trim().split(/\s\s+/)[1].trim().split(":")[1],
+            +eftPayment[3]?.trim().split(/\s\s+/)[0].trim().split(".")[2],
+            +eftPayment[3]?.trim().split(/\s\s+/)[0].trim().split(".")[1] - 1,
+            +eftPayment[3]?.trim().split(/\s\s+/)[0].trim().split(".")[0],
+            +eftPayment[3]?.trim().split(/\s\s+/)[1].trim().split(":")[0],
+            +eftPayment[3]?.trim().split(/\s\s+/)[1].trim().split(":")[1],
             0,
           ),
-          total: parseFloat(eftPayment[5].trim().split(/\s\s+/)[1].trim()),
+          total: parseFloat(eftPayment[5]?.trim().split(/\s\s+/)[1].trim()),
         }
       : null,
     cumulus: {
-      nr: cumulus[2].trim().split(/\s\s+/)[1],
+      nr: cumulus[2]?.trim().split(/\s\s+/)[1],
       points: {
-        current: parseFloat(cumulus[3].trim().split(/\s\s+/)[1]),
-        received: parseFloat(cumulus[4].trim().split(/\s\s+/)[1]),
+        current: parseFloat(cumulus[3]?.trim().split(/\s\s+/)[1]),
+        received: parseFloat(cumulus[4]?.trim().split(/\s\s+/)[1]),
       },
     },
     details: {
-      outlet: footer[2].trim().split(/\s\s+/)[0],
-      bed: footer[2].trim().split(/\s\s+/)[1],
-      box: footer[2].trim().split(/\s\s+/)[2],
-      bon: footer[2].trim().split(/\s\s+/)[3],
+      outlet: footer[2]?.trim().split(/\s\s+/)[0],
+      bed: footer[2]?.trim().split(/\s\s+/)[1],
+      box: footer[2]?.trim().split(/\s\s+/)[2],
+      bon: footer[2]?.trim().split(/\s\s+/)[3],
       date: new Date(
-        +footer[2].trim().split(/\s\s+/)[4].split(".")[2],
-        +footer[2].trim().split(/\s\s+/)[4].split(".")[1] - 1,
-        +footer[2].trim().split(/\s\s+/)[4].split(".")[0],
-        +footer[2].trim().split(/\s\s+/)[5].split(":")[0],
-        +footer[2].trim().split(/\s\s+/)[5].split(":")[1],
-        +footer[2].trim().split(/\s\s+/)[5].split(":")[2],
+        +footer[2]?.trim().split(/\s\s+/)[4].split(".")[2],
+        +footer[2]?.trim().split(/\s\s+/)[4].split(".")[1] - 1,
+        +footer[2]?.trim().split(/\s\s+/)[4].split(".")[0],
+        +footer[2]?.trim().split(/\s\s+/)[5].split(":")[0],
+        +footer[2]?.trim().split(/\s\s+/)[5].split(":")[1],
+        +footer[2]?.trim().split(/\s\s+/)[5].split(":")[2],
       ),
-      letter: footer[2].trim().split(/\s\s+/)[6].trim(),
+      letter: footer[2]?.trim().split(/\s\s+/)[6].trim(),
     },
   };
 }
@@ -166,7 +168,7 @@ export async function getCumulusReceipt(
     ...cumulusReceiptOptions,
   };
   return getCumulusReceiptRequest(
-    urlExport,
+    urlExport + "/" + cumulusReceiptOptions.receiptId,
     cumulusReceiptOptions,
     cookies,
     htmlOnly,
@@ -189,100 +191,43 @@ function convertDateToCumulusDateString(date: Date): string {
 }
 
 export interface ICumulusReceiptsOptions extends Record<string, any> {
-  from: Date;
-  to: Date;
-  p?: number;
+  dateFrom: Date;
+  dateTo?: Date;
 }
 
 const defaultCumulusReceiptsOptions: ICumulusReceiptsOptions = {
-  from: new Date(),
-  to: new Date(),
-  p: 1,
-  sort: "dateDsc",
+  dateFrom: new Date(),
+  dateTo: new Date(),
 };
 
 async function getCumulusReceiptsRequest(
   url: string,
-  options: ICumulusReceiptsOptions | Record<string, any>,
+  options: ICumulusReceiptsOptions,
   cookies: ICumulusCookies,
-): Promise<ICumulusReceiptsResponse> {
+): Promise<any> {
   const headers = {
-    accept: "text/html, */*; q=0.01",
-    "accept-language": "en-US,en;q=0.9",
-    "sec-ch-ua":
-      '"Chromium";v="106", "Not;A=Brand";v="99", "Google Chrome";v="106.0.5249.119"',
-    "sec-ch-ua-mobile": "?0",
-    "sec-ch-ua-platform": '"Windows"',
+    accept: "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
     "sec-fetch-dest": "empty",
     "sec-fetch-mode": "cors",
     "sec-fetch-site": "same-origin",
-    "x-requested-with": "XMLHttpRequest",
+    "X-CSRF-TOKEN": cookies.CSRF || "",
+    Referer: "https://account.migros.ch/purchases/receipts",
   };
 
   const newOptions = {
-    period: `${convertDateToCumulusDateString(
-      options.from,
-    )}_${convertDateToCumulusDateString(options.to)}`,
-    p: options.p,
+    dateFrom: convertDateToCumulusDateString(options.dateFrom),
+    dateTo: convertDateToCumulusDateString(options.dateTo || new Date()),
   };
 
-  const tableData: ICumulusReceiptsResponseItem[] = [];
-
-  // eslint-disable-next-line no-loops/no-loops,no-constant-condition
-  while (true) {
-    const response = await getRequest(url, newOptions, headers, cookies);
-    if (!response.text) {
-      break;
-    }
-
-    const $ = cheerio.load(await response.text());
-    const links = $(
-      "[data-modal-src^='/service/avantaReceiptExport/html?receiptId=']",
-    );
-
-    links.each((_, el) => {
-      const rowItems = $(el).parent().parent().children();
-      const [day, month, year] = $(rowItems[1]).text().trim().split(".");
-      tableData.push({
-        date: new Date(+year, +month - 1, +day),
-        outlet: $(rowItems[2]).text().trim(),
-        total: {
-          value: parseFloat(($(rowItems[3])[0].children[1] as any)["data"]),
-          currency: ($(rowItems[3])[0].children[0] as any)[
-            "children"
-          ][0].data.trim(),
-        },
-        points: {
-          value: parseFloat(($(rowItems[4])[0].children[0] as any)["data"]),
-        },
-        links: {
-          html:
-            migrosApiPaths["cumulus"] +
-            ($(rowItems[1])[0].children[1] as any).attribs["data-modal-src"],
-          pdf:
-            migrosApiPaths["cumulus"] +
-            ($(rowItems[1])[0].children[1] as any).attribs.href,
-        },
-        id: ($(rowItems[1])[0].children[1] as any).attribs.href.match(
-          new RegExp(/(?<==).*?(?=&|$)/),
-        )[0],
-      });
-    });
-
-    if (links.length < 10) {
-      break;
-    }
-
-    newOptions.p = newOptions.p + 1;
-  }
-
-  return tableData;
+  const response = await getRequest(url, newOptions, headers, cookies);
+  return await response.json();
 }
 
 export async function getCumulusReceipts(
   cumulusReceiptsOptions: ICumulusReceiptsOptions,
   cookies: ICumulusCookies,
-): Promise<ICumulusReceiptsResponse> {
+): Promise<any> {
   cumulusReceiptsOptions = {
     ...defaultCumulusReceiptsOptions,
     ...cumulusReceiptsOptions,

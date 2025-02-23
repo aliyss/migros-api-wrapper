@@ -1,42 +1,54 @@
 import { StoreType } from "../enums/StoreType";
 import { Region } from "../enums/Region";
 
-import { getRequest } from "../../utils/requests";
+import { postRequest } from "../../utils/requests";
 
 import { migrosApiPaths } from "../apiPaths";
 import { IMigrosNecessaryHeaders } from "../interfaces/headers";
+import deepmerge from "deepmerge";
 
-const url = migrosApiPaths["product-display"].public.v2 + "/product-cards";
+const url = migrosApiPaths["product-display"].public.v4 + "/product-cards";
 
 export interface IProductCardsOptions extends Record<string, any> {
-  uids: string | string[];
-  storeType?: StoreType;
-  region?: Region;
-  newCategoryTree?: boolean;
-  ongoingOfferDate?: string;
+  productFilter: {
+    uids: number[];
+  };
+  offerFilter?: {
+    storeType?: StoreType;
+    region?: Region;
+    newCategoryTree?: boolean;
+    ongoingOfferDate?: string;
+  };
 }
 
 const defaultProductCardsOptions: IProductCardsOptions = {
-  uids: "",
-  storeType: StoreType.OFFLINE,
-  region: Region.NATIONAL,
+  productFilter: {
+    uids: [],
+  },
+  offerFilter: {
+    storeType: StoreType.OFFLINE,
+    region: Region.NATIONAL,
+  },
 };
 
 async function getProductCardsRequest(
   url: string,
-  options: IProductCardsOptions,
+  body: IProductCardsOptions,
   headers: IMigrosNecessaryHeaders,
 ): Promise<Record<string, any>> {
-  if (Array.isArray(options.uids)) {
-    options.uids = options.uids.join(",");
+  if (body.offerFilter && !body.offerFilter?.ongoingOfferDate) {
+    body.offerFilter.ongoingOfferDate =
+      new Date().toISOString().split("T")[0] + "T00:00:00";
   }
 
   const necessaryHeaders = {
     accept: "application/json, text/plain, *!/!*",
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    "Content-Type": "application/json",
     ...headers,
   };
 
-  const response = await getRequest(url, options, necessaryHeaders);
+  const response = await postRequest(url, body, {}, necessaryHeaders);
 
   return await response.json();
 }
@@ -45,6 +57,9 @@ export async function getProductCards(
   productCardOptions: IProductCardsOptions,
   headers: IMigrosNecessaryHeaders,
 ): Promise<any> {
-  productCardOptions = { ...defaultProductCardsOptions, ...productCardOptions };
+  productCardOptions = deepmerge(
+    defaultProductCardsOptions,
+    productCardOptions,
+  );
   return getProductCardsRequest(url, productCardOptions, headers);
 }
