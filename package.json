@@ -1,6 +1,6 @@
 {
   "name": "migros-api-wrapper",
-  "version": "1.1.21",
+  "version": "1.1.22",
   "description": "Making the api of migros more accessible to the public.",
   "keywords": [
     "migros",
@@ -51,7 +51,6 @@
     "cheerio": "^1.0.0-rc.12",
     "deepmerge": "^4.3.1",
     "dotenv": "^16.4.5",
-    "node-libcurl": "^4.1.0",
     "pino": "^8.6.1",
     "pino-pretty": "^9.1.1"
   }
