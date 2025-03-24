@@ -6,30 +6,16 @@ describe("Check for a Products Supply", () => {
   test("Search for 228006", async () => {
     const guestInfo = await MigrosAPI.account.oauth2.getGuestToken();
     const productSupplyOptions: IProductSupplyOptions = {
-      pids: "228006",
-      warehouses: 1,
+      pids: "100024405",
+      costCenterIds: "0150180",
     };
     const response = await MigrosAPI.products.productStock.getProductSupply(
       productSupplyOptions,
       { leshopch: guestInfo.token },
     );
-    expect(response[0].infiniteSupply).toBe(false);
-    expect(response[0].pid).toBe(228006);
-  });
-});
-
-describe("Check for multiple Products Supplies", () => {
-  test("Search for 4963004 and 228006", async () => {
-    const guestInfo = await MigrosAPI.account.oauth2.getGuestToken();
-    const productSupplyOptions: IProductSupplyOptions = {
-      pids: ["228006"],
-      warehouses: 1,
-    };
-    const response = await MigrosAPI.products.productStock.getProductSupply(
-      productSupplyOptions,
-      { leshopch: guestInfo.token },
+    expect(response.catalogItemId.toString()).toBe(productSupplyOptions.pids);
+    expect(response.availabilities[0].id.toString()).toBe(
+      productSupplyOptions.costCenterIds,
     );
-    expect(response[0].infiniteSupply).toBe(false);
-    expect(response[0].pid).toBe(228006);
   });
 });

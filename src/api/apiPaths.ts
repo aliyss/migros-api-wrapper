@@ -28,6 +28,11 @@ export const migrosApiPaths = {
         "/marketablestock/public/v2/api/marketablestocks",
     },
   },
+  ["store-availability"]: {
+    public: {
+      v2: defaultMigrosApiPath + "/store-availability/public/v2/availabilities",
+    },
+  },
   authentication: {
     public: {
       v1: defaultMigrosApiPath + "/authentication/public/v1/api",

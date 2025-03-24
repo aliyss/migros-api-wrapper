@@ -1,39 +1,39 @@
-import { getRequestBypass } from "../../utils/requests";
+import { getRequest } from "../../utils/requests";
 
 import { migrosApiPaths } from "../apiPaths";
 import { IMigrosNecessaryHeaders } from "../interfaces/headers";
 
-const url = migrosApiPaths["marketablestock"].public.v1 + "/warehouses";
+const url = migrosApiPaths["store-availability"].public.v2 + "/products";
 
 export interface IProductSupplyOptions {
-  pids: string | string[];
-  warehouses: number;
+  pids: string;
+  costCenterIds: string | string[];
 }
 
 const defaultProductSupplyOptions: IProductSupplyOptions = {
   pids: "",
-  warehouses: 0,
+  costCenterIds: "0",
 };
 
-async function getProductCardsRequest(
+async function getProductSupplyRequest(
   url: string,
   options: IProductSupplyOptions,
   headers: IMigrosNecessaryHeaders,
 ): Promise<Record<string, any>> {
-  if (Array.isArray(options.pids)) {
-    options.pids = options.pids.join(",");
+  if (Array.isArray(options.costCenterIds)) {
+    options.costCenterIds = options.costCenterIds.join(",");
   }
 
-  url += `/${options.warehouses}/products/${options.pids}`;
+  url += `/${options.pids}?costCenterIds=${options.costCenterIds}`;
 
   const necessaryHeaders = {
     accept: "application/json, text/plain, */*",
     ...headers,
   };
 
-  const response = await getRequestBypass(url, {}, necessaryHeaders);
+  const response = await getRequest(url, {}, necessaryHeaders);
 
-  return JSON.parse(response.data);
+  return await response.json();
 }
 
 export async function getProductSupply(
@@ -44,5 +44,5 @@ export async function getProductSupply(
     ...defaultProductSupplyOptions,
     ...productSupplyOptions,
   };
-  return getProductCardsRequest(url, productSupplyOptions, headers);
+  return getProductSupplyRequest(url, productSupplyOptions, headers);
 }

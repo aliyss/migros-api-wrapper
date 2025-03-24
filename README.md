@@ -62,14 +62,11 @@ Currently following api paths are being considered:
 |  |     |  └── product-detail
 |  |     └── v2
 |  |        └── product-cards
-|  └── marketablestock
+|  └── store-availability
 |     └── public
-|        └── v1
-|           └── api
-|              ├── warehouses
-|              |  └── [warehouseId]
-|              |     └── products
-|              └── product-detail
+|        └── v2
+|           └── availabilities
+|               └── products
 ├── login.migros.ch
 |  ├── security
 |  |  └── options
