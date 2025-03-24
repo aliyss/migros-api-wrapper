@@ -1,16 +1,15 @@
-import { getRequest } from "../../utils/requests";
-import { retrieveSetCookieFromHeaders } from "../../utils/retrieveSetCookieFromHeaders";
+import { getRequestBypass } from "../../utils/requests";
 
 import { migrosApiPaths } from "../apiPaths";
 
 const url = migrosApiPaths["authentication"].public.v1 + "/guest";
 
 export interface IAuthenticationOptions extends Record<string, any> {
-  ignoreAuthModule: boolean;
+  authorizationNotRequired: boolean;
 }
 
 const defaultAuthenticationOptions: IAuthenticationOptions = {
-  ignoreAuthModule: true,
+  authorizationNotRequired: true,
 };
 
 async function getGuestTokenRequest(
@@ -18,16 +17,20 @@ async function getGuestTokenRequest(
   options: IAuthenticationOptions,
 ): Promise<Record<string, any>> {
   const necessaryHeaders = {
-    accept: "application/json, text/plain, *!/!*",
+    ["accept"]: "application/json, text/plain, */*",
+    ["User-Agent"]:
+      "Mozilla/5.0 (X11; Linux x86_64; rv:135.0) Gecko/20100101 Firefox/135.0",
   };
 
-  const response = await getRequest(url, options, necessaryHeaders);
+  const response = await getRequestBypass(url, options, necessaryHeaders);
 
-  retrieveSetCookieFromHeaders(response.headers);
+  if (!response.headers["leshopch"]) {
+    throw new Error("No guest token found in the response headers.");
+  }
 
   return {
-    token: response.headers.get("leshopch"),
-    body: await response.json(),
+    token: response.headers["leshopch"],
+    body: JSON.parse(response.data),
   };
 }
 

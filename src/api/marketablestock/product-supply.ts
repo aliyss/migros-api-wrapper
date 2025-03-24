@@ -1,4 +1,4 @@
-import { getRequest } from "../../utils/requests";
+import { getRequestBypass } from "../../utils/requests";
 
 import { migrosApiPaths } from "../apiPaths";
 import { IMigrosNecessaryHeaders } from "../interfaces/headers";
@@ -27,13 +27,13 @@ async function getProductCardsRequest(
   url += `/${options.warehouses}/products/${options.pids}`;
 
   const necessaryHeaders = {
-    accept: "application/json, text/plain, *!/!*",
+    accept: "application/json, text/plain, */*",
     ...headers,
   };
 
-  const response = await getRequest(url, {}, necessaryHeaders);
+  const response = await getRequestBypass(url, {}, necessaryHeaders);
 
-  return await response.json();
+  return JSON.parse(response.data);
 }
 
 export async function getProductSupply(
