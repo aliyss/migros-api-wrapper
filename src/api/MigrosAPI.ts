@@ -25,6 +25,8 @@ import {
   ICategoryListBody,
   ICategoryListOptions,
 } from "./onesearch-oc-seaapi/category";
+import { stores } from "./stores";
+import { ISearchStoresOptions } from "./stores/search-stores";
 
 export class MigrosAPI {
   private _leShopToken: string | undefined;
@@ -72,6 +74,9 @@ export class MigrosAPI {
     productDisplay: productDisplay,
     productSearch: productSearch,
   };
+
+  static stores = stores;
+
   static account = {
     oauth2: oauth2,
     security: security,
@@ -81,6 +86,17 @@ export class MigrosAPI {
     recipeSearch: migusto.recipeSearch,
     recipeProducts: migusto.recipeProducts,
     recipeDetails: migusto.recipeDetails,
+  };
+
+  stores = {
+    searchStores: async (
+      searchStoresOptions: ISearchStoresOptions,
+      token: string | undefined = this.leShopToken,
+    ): Promise<any> => {
+      return await stores.searchStores(searchStoresOptions, {
+        leshopch: token,
+      });
+    },
   };
 
   products = {

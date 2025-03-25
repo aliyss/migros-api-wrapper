@@ -1,7 +1,10 @@
 import { appendParametersToUrl } from "./appendParametersToUrl";
 import { addCookieToHeaders } from "./addCookieToHeaders";
 import { ICookies } from "../api/interfaces/cookies";
-import { exec } from "child_process";
+
+import tls from "tls";
+import axios, { AxiosResponse } from "axios";
+tls.DEFAULT_MIN_VERSION = "TLSv1.3";
 
 export async function getRequest(
   url: string,
@@ -19,45 +22,19 @@ export async function getRequest(
   return response;
 }
 
-const execPromise = (cmd: string) => {
-  return new Promise(function (resolve, reject) {
-    exec(cmd, function (err: any, stdout: any) {
-      if (err) return reject(err);
-      resolve(stdout);
-    });
-  });
-};
-
 export async function getRequestBypass(
   url: string,
   options: Record<string, string>,
   headers: Record<string, string> = {},
   cookies: ICookies = {},
-): Promise<{
-  headers: Record<string, string>;
-  data: string;
-}> {
+): Promise<AxiosResponse> {
   url = appendParametersToUrl(url, options);
   headers = addCookieToHeaders(headers, cookies);
 
-  const response = (await execPromise(
-    `curl -v --tlsv1.3 ${url} ${Object.keys(headers)
-      .map((key) => `-H "${key}: ${headers[key]}"`)
-      .join(" ")} -D -`,
-  )) as string;
-
-  const [headersString, data] = response.split("\r\n\r\n");
-  const headersArray = headersString.split("\r\n").slice(1);
-  const headersObject: Record<string, string> = {};
-  headersArray.forEach((header) => {
-    const [key, value] = header.split(": ");
-    headersObject[key] = value;
+  return await axios(url, {
+    method: "GET",
+    headers: headers,
   });
-
-  return {
-    headers: headersObject,
-    data: data,
-  };
 }
 
 export async function postRequest(

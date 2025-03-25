@@ -30,7 +30,7 @@ async function getGuestTokenRequest(
 
   return {
     token: response.headers["leshopch"],
-    body: JSON.parse(response.data),
+    body: response.data,
   };
 }
 
