@@ -62,7 +62,7 @@ export async function getRequestBypassStrong(
   cookies: ICookies = {},
 ): Promise<{
   headers: Record<string, string>;
-  data: string;
+  data: any;
 }> {
   url = appendParametersToUrl(url, options);
   headers = addCookieToHeaders(headers, cookies);
@@ -83,7 +83,7 @@ export async function getRequestBypassStrong(
 
   return {
     headers: headersObject,
-    data: data,
+    data: JSON.parse(data),
   };
 }
 

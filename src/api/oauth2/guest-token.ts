@@ -1,4 +1,4 @@
-import { getRequestBypass } from "../../utils/requests";
+import { getRequestBypass, getRequestBypassStrong } from "../../utils/requests";
 
 import { migrosApiPaths } from "../apiPaths";
 
@@ -22,7 +22,11 @@ async function getGuestTokenRequest(
       "Mozilla/5.0 (X11; Linux x86_64; rv:135.0) Gecko/20100101 Firefox/135.0",
   };
 
-  const response = await getRequestBypass(url, options, necessaryHeaders);
+  console.log("Using cURL: ", process.env.MIGROS_API_WRAPPER_USECURL);
+
+  const response = process.env.MIGROS_API_WRAPPER_USECURL
+    ? await getRequestBypassStrong(url, options, necessaryHeaders)
+    : await getRequestBypass(url, options, necessaryHeaders);
 
   if (!response.headers["leshopch"]) {
     throw new Error("No guest token found in the response headers.");
