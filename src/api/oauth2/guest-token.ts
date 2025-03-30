@@ -22,8 +22,6 @@ async function getGuestTokenRequest(
       "Mozilla/5.0 (X11; Linux x86_64; rv:135.0) Gecko/20100101 Firefox/135.0",
   };
 
-  console.log("Using cURL: ", process.env.MIGROS_API_WRAPPER_USECURL);
-
   const response = process.env.MIGROS_API_WRAPPER_USECURL
     ? await getRequestBypassStrong(url, options, necessaryHeaders)
     : await getRequestBypass(url, options, necessaryHeaders);
