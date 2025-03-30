@@ -1,4 +1,4 @@
-import { getRequest } from "../../utils/requests";
+import { getRequestBypass } from "../../utils/requests";
 
 import { migrosApiPaths } from "../apiPaths";
 import { IMigrosNecessaryHeaders } from "../interfaces/headers";
@@ -31,9 +31,9 @@ async function getProductSupplyRequest(
     ...headers,
   };
 
-  const response = await getRequest(url, {}, necessaryHeaders);
+  const response = await getRequestBypass(url, {}, necessaryHeaders);
 
-  return await response.json();
+  return response.data;
 }
 
 export async function getProductSupply(

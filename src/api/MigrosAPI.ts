@@ -28,6 +28,11 @@ import {
 import { stores } from "./stores";
 import { ISearchStoresOptions } from "./stores/search-stores";
 
+if (!process.env.MIGROS_API_WRAPPER_USERAGENT) {
+  process.env.MIGROS_API_WRAPPER_USERAGENT =
+    "Mozilla/5.0 (X11; Linux x86_64; rv:135.0) Gecko/20100101 Firefox/135.0";
+}
+
 export class MigrosAPI {
   private _leShopToken: string | undefined;
 

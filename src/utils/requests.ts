@@ -27,7 +27,19 @@ export async function getRequestBypass(
   options: Record<string, string>,
   headers: Record<string, string> = {},
   cookies: ICookies = {},
-): Promise<AxiosResponse> {
+): Promise<{
+  headers: AxiosResponse["headers"];
+  data: AxiosResponse["data"];
+}> {
+  if (!headers["User-Agent"] && process.env.MIGROS_API_WRAPPER_USERAGENT) {
+    headers["User-Agent"] = process.env.MIGROS_API_WRAPPER_USERAGENT;
+  }
+
+  if (process.env.MIGROS_API_WRAPPER_USECURL) {
+    console.warn("Using curl to bypass cloudflare protection.");
+    return getRequestBypassStrong(url, options, headers, cookies);
+  }
+
   url = appendParametersToUrl(url, options);
   headers = addCookieToHeaders(headers, cookies);
 
@@ -61,8 +73,8 @@ export async function getRequestBypassStrong(
   headers: Record<string, string> = {},
   cookies: ICookies = {},
 ): Promise<{
-  headers: Record<string, string>;
-  data: any;
+  headers: AxiosResponse["headers"];
+  data: AxiosResponse["data"];
 }> {
   url = appendParametersToUrl(url, options);
   headers = addCookieToHeaders(headers, cookies);
