@@ -1,6 +1,8 @@
 import { describe, expect, test } from "@jest/globals";
 import { MigrosAPI } from "../src";
 import { IProductCardsOptions } from "../src/api/product-display/product-cards";
+import * as fs from 'fs';
+import * as path from 'path';
 
 describe("Search for a Product Card", () => {
   test("Search for salt", async () => {
@@ -13,6 +15,12 @@ describe("Search for a Product Card", () => {
     const response = await MigrosAPI.products.productDisplay.getProductCards(
       productCardsOptions,
       { leshopch: guestInfo.token },
+    );
+    console.log('Salt Product Card Response:', JSON.stringify(response, null, 2));
+    // Save response to file
+    fs.writeFileSync(
+      path.join(__dirname, 'results/salt-card.json'),
+      JSON.stringify(response, null, 2)
     );
     expect(response[0].name).toBe("Kochsalz");
     expect(response[0].brand).toBe("Jura-Sel");
@@ -27,6 +35,12 @@ describe("Search for a Product Card", () => {
     const response = await MigrosAPI.products.productDisplay.getProductCards(
       productCardsOptions,
       { leshopch: guestInfo.token },
+    );
+    console.log('Bread Product Card Response:', JSON.stringify(response, null, 2));
+    // Save response to file
+    fs.writeFileSync(
+      path.join(__dirname, 'results/bread-card.json'),
+      JSON.stringify(response, null, 2)
     );
     expect(response[0].name).toBe("Helles Weizenbrot");
     expect(response[0].brand).toBe("M-Classic");
@@ -45,6 +59,12 @@ describe("Search for multiple Product Cards", () => {
       productCardsOptions,
       { leshopch: guestInfo.token },
     );
+    console.log('Multiple Salts Product Card Response:', JSON.stringify(response, null, 2));
+    // Save response to file
+    fs.writeFileSync(
+      path.join(__dirname, 'results/multiple-salts-card.json'),
+      JSON.stringify(response, null, 2)
+    );
     expect(response[0].name).toBe("Kochsalz");
     expect(response[0].brand).toBe("Jura-Sel");
     expect(response[1].name).toBe("Speisesalz");
@@ -60,6 +80,12 @@ describe("Search for multiple Product Cards", () => {
     const response = await MigrosAPI.products.productDisplay.getProductCards(
       productCardsOptions,
       { leshopch: guestInfo.token },
+    );
+    console.log('Multiple Breads Product Card Response:', JSON.stringify(response, null, 2));
+    // Save response to file
+    fs.writeFileSync(
+      path.join(__dirname, 'results/multiple-breads-card.json'),
+      JSON.stringify(response, null, 2)
     );
     expect(response[0].name).toBe("Helles Weizenbrot");
     expect(response[0].brand).toBe("M-Classic");
