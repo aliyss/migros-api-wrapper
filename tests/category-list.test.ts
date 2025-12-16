@@ -1,22 +1,30 @@
 import { describe, expect, test } from "@jest/globals";
 import { MigrosAPI } from "../src";
-import { ICategoryListBody } from "../src/api/onesearch-oc-seaapi/category";
 
 describe("Get a list of categories", () => {
-  test("Search for Dairy", async () => {
+  test("Retrieve Shopping List Categories", async () => {
     const guestInfo = await MigrosAPI.account.oauth2.getGuestToken();
-    const categoryListBody: ICategoryListBody = {
-      from: 0,
-      categoryId: 7494731,
-    };
-    const response = await MigrosAPI.products.productSearch.listCategories(
-      categoryListBody,
-      {
-        leshopch: guestInfo.token,
-      },
-    );
-    expect(response.categories[0].name).toBe(
-      "Dairy, eggs & fresh convenience food",
-    );
+    const response = await MigrosAPI.products.shoppingList.listCategories({
+      leshopch: guestInfo.token,
+    });
+
+    const idFruechte = response.find((x: any) => x.id === 7494732);
+    if (!idFruechte) {
+      throw new Error("Category not found");
+    }
+    expect(idFruechte.name.de).toBe("Früchte & Gemüse");
+  });
+
+  test("List Categories via Search", async () => {
+    const guestInfo = await MigrosAPI.account.oauth2.getGuestToken();
+    const response = await MigrosAPI.products.productSearch.listCategories({
+      leshopch: guestInfo.token,
+    });
+
+    const idFruechte = response.categories.find((x: any) => x.id === 7494732);
+    if (!idFruechte) {
+      throw new Error("Category not found");
+    }
+    expect(idFruechte.slug).toBe("fruits-vegetables");
   });
 });

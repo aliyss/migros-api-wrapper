@@ -54,8 +54,14 @@ Currently following api paths are being considered:
 ├── www.migros.ch
 |  ├── onesearch-oc-seaapi
 |  |  └── public
-|  |     └── v5
-|  |        └── search
+|  |      ├── v2       
+|  |      |  └── storemap
+|  |      └── v5       
+|  |         └── search
+|  ├── shopping-list
+|  |  └── public
+|  |     └── v1
+|  |        └── categories
 |  ├── product-display
 |  |  └── public
 |  |     ├── v2

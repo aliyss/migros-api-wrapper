@@ -4,3 +4,10 @@ export enum Language {
   FR = "fr",
   IT = "it",
 }
+
+export enum LanguageUpper {
+  EN = "EN",
+  DE = "DE",
+  FR = "FR",
+  IT = "IT",
+}

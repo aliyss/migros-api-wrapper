@@ -1,20 +1,29 @@
 import { Region } from "../enums/Region";
-import { Language } from "../enums/Language";
+import { Language, LanguageUpper } from "../enums/Language";
 import { Algorithm } from "../enums/Algorithm";
 import { SortFields } from "../enums/SortFields";
 import { SortOrder } from "../enums/SortOrder";
 
-import { postRequest } from "../../utils/requests";
+import { getRequestBypass } from "../../utils/requests";
 
 import { migrosApiPaths } from "../apiPaths";
 import { IMigrosNecessaryHeaders } from "../interfaces/headers";
 
-const url = migrosApiPaths["onesearch-oc-seapi"].public.v3 + "/search/category";
+const url = migrosApiPaths["onesearch-oc-seapi"].public.v2 + "/storemap";
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export type ICategoryListOptions = Record<string, any>;
+export interface ICategoryListOptions extends Record<string, any> {
+  language?: LanguageUpper;
+  regionId?: Region;
+  storeMapScope?: "DEFAULT" | string;
+  [key: string]: any;
+}
 
-const defaultCategoryListOptions: ICategoryListOptions = {};
+const defaultCategoryListOptions: ICategoryListOptions = {
+  language: LanguageUpper.EN,
+  regionId: Region.NATIONAL,
+  storeMapScope: "DEFAULT",
+};
 
 export interface ICategoryListBody extends Record<string, any> {
   algorithm?: Algorithm;
@@ -29,21 +38,8 @@ export interface ICategoryListBody extends Record<string, any> {
   sortOrder?: SortOrder;
 }
 
-const defaultCategoryListBody: ICategoryListBody = {
-  algorithm: Algorithm.DEFAULT,
-  regionId: Region.NATIONAL,
-  language: Language.EN,
-  productIds: [],
-  sortFields: [],
-  sortOrder: SortOrder.ASC,
-  requestSponsoredProducts: false,
-  from: 0,
-  categoryId: 0,
-};
-
-async function postCategoryListRequest(
+async function getCategoryListRequest(
   url: string,
-  body: ICategoryListBody,
   options: ICategoryListOptions,
   headers: IMigrosNecessaryHeaders,
 ): Promise<Record<string, any>> {
@@ -54,13 +50,12 @@ async function postCategoryListRequest(
     ...headers,
   };
 
-  const response = await postRequest(url, body, options, necessaryHeaders);
+  const response = await getRequestBypass(url, options, necessaryHeaders);
 
-  return await response.json();
+  return response.data;
 }
 
 export async function categoryList(
-  categoryListBody: ICategoryListBody,
   headers: IMigrosNecessaryHeaders,
   categoryListOptions?: ICategoryListOptions,
 ): Promise<any> {
@@ -68,12 +63,6 @@ export async function categoryList(
     ...defaultCategoryListOptions,
     ...categoryListOptions,
   };
-  categoryListBody = { ...defaultCategoryListBody, ...categoryListBody };
 
-  return postCategoryListRequest(
-    url,
-    categoryListBody,
-    categoryListOptions,
-    headers,
-  );
+  return getCategoryListRequest(url, categoryListOptions, headers);
 }

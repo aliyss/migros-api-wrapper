@@ -1,7 +1,7 @@
 import { StoreType } from "../enums/StoreType";
 import { Region } from "../enums/Region";
 
-import { getRequest } from "../../utils/requests";
+import { getRequestBypass } from "../../utils/requests";
 
 import { migrosApiPaths } from "../apiPaths";
 import { IMigrosNecessaryHeaders } from "../interfaces/headers";
@@ -38,9 +38,9 @@ async function getProductDetailRequest(
     ...headers,
   };
 
-  const response = await getRequest(url, options, necessaryHeaders);
+  const response = await getRequestBypass(url, options, necessaryHeaders);
 
-  return await response.json();
+  return await response.data;
 }
 
 export async function getProductDetail(

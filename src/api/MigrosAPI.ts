@@ -21,16 +21,14 @@ import {
   IProductSearchOptions,
 } from "./onesearch-oc-seaapi/product-search";
 import { migusto } from "./migusto";
-import {
-  ICategoryListBody,
-  ICategoryListOptions,
-} from "./onesearch-oc-seaapi/category";
+import { ICategoryListOptions } from "./onesearch-oc-seaapi/category";
 import { stores } from "./stores";
 import { ISearchStoresOptions } from "./stores/search-stores";
+import { shoppingList } from "./shopping-list";
 
 if (!process.env.MIGROS_API_WRAPPER_USERAGENT) {
   process.env.MIGROS_API_WRAPPER_USERAGENT =
-    "Mozilla/5.0 (X11; Linux x86_64; rv:135.0) Gecko/20100101 Firefox/135.0";
+    "Mozilla/5.0 (X11; Linux x86_64; rv:144.0) Gecko/20100101 Firefox/144.0";
 }
 
 export class MigrosAPI {
@@ -78,6 +76,7 @@ export class MigrosAPI {
     productStock: marketableStock,
     productDisplay: productDisplay,
     productSearch: productSearch,
+    shoppingList: shoppingList,
   };
 
   static stores = stores;
@@ -144,7 +143,6 @@ export class MigrosAPI {
     },
     productSearch: {
       categoryList: async (
-        categoryListBody: ICategoryListBody,
         categoryListOptions?: ICategoryListOptions,
         token: string | undefined = this.leShopToken,
       ): Promise<any> => {
@@ -152,7 +150,6 @@ export class MigrosAPI {
           throw Error("LeShop Token is undefined");
         }
         return await productSearch.listCategories(
-          categoryListBody,
           {
             leshopch: token,
           },
@@ -173,6 +170,22 @@ export class MigrosAPI {
             leshopch: token,
           },
           productSearchOptions,
+        );
+      },
+    },
+    shoppingList: {
+      listCategories: async (
+        token: string | undefined = this.leShopToken,
+        categoryListOptions?: ICategoryListOptions,
+      ): Promise<any> => {
+        if (!token) {
+          throw Error("LeShop Token is undefined");
+        }
+        return await shoppingList.listCategories(
+          {
+            leshopch: token,
+          },
+          categoryListOptions,
         );
       },
     },

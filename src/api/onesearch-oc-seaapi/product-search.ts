@@ -4,7 +4,7 @@ import { Algorithm } from "../enums/Algorithm";
 import { SortFields } from "../enums/SortFields";
 import { SortOrder } from "../enums/SortOrder";
 
-import { postRequest } from "../../utils/requests";
+import { postRequestBypass } from "../../utils/requests";
 
 import { migrosApiPaths } from "../apiPaths";
 import { IMigrosNecessaryHeaders } from "../interfaces/headers";
@@ -50,9 +50,14 @@ async function postProductSearchRequest(
     ...headers,
   };
 
-  const response = await postRequest(url, body, options, necessaryHeaders);
+  const response = await postRequestBypass(
+    url,
+    body,
+    options,
+    necessaryHeaders,
+  );
 
-  return await response.json();
+  return response.data;
 }
 
 export async function postProductSearch(

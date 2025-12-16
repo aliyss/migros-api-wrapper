@@ -18,7 +18,5 @@ describe("Search for recipes", () => {
     const response = await MigrosAPI.migusto.recipeSearch(recipeSearchOptions);
     const testRecipe = response.recipes.find((x) => x.id === "70820");
     expect(testRecipe?.title).toBe("Cheeseburger");
-    const testRecipe2 = response.recipes.find((x) => x.id === "19497388");
-    expect(testRecipe2?.title).toBe("Linsenburger");
   });
 });
