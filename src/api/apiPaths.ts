@@ -22,6 +22,9 @@ export const migrosApiPaths = {
       v1: defaultMigrosApiPath + "/product-display/public/v1",
       v2: defaultMigrosApiPath + "/product-display/public/v2",
       v4: defaultMigrosApiPath + "/product-display/public/v4",
+      web: {
+        v2: defaultMigrosApiPath + "/product-display/public/web/v2",
+      },
     },
   },
   marketablestock: {

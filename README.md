@@ -64,9 +64,11 @@ Currently following api paths are being considered:
 |  |        └── categories
 |  ├── product-display
 |  |  └── public
+|  |     ├── web/v2
+|  |     |  └── products/promotion/search
 |  |     ├── v2
 |  |     |  └── product-detail
-|  |     └── v2
+|  |     └── v4
 |  |        └── product-cards
 |  └── store-availability
 |     └── public

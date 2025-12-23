@@ -25,6 +25,7 @@ import { ICategoryListOptions } from "./onesearch-oc-seaapi/category";
 import { stores } from "./stores";
 import { ISearchStoresOptions } from "./stores/search-stores";
 import { shoppingList } from "./shopping-list";
+import { IProductPromotionSearchOptions } from "./product-display/product-promotion";
 
 if (!process.env.MIGROS_API_WRAPPER_USERAGENT) {
   process.env.MIGROS_API_WRAPPER_USERAGENT =
@@ -139,6 +140,20 @@ export class MigrosAPI {
         return await productDisplay.getProductDetails(productSupplyOptions, {
           leshopch: token,
         });
+      },
+      getProductPromotionSearch: async (
+        productPromotionOptions: IProductPromotionSearchOptions,
+        token: string | undefined = this.leShopToken,
+      ): Promise<any> => {
+        if (!token) {
+          throw Error("LeShop Token is undefined");
+        }
+        return await productDisplay.getProductPromotionSearch(
+          productPromotionOptions,
+          {
+            leshopch: token,
+          },
+        );
       },
     },
     productSearch: {
