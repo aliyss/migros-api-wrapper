@@ -59,6 +59,9 @@ export const migrosApiPaths = {
     recipeProducts: {
       v1: defaultMigustoApiPath + "/.rest/recipeProducts/v1",
     },
+    recipeInfo: {
+      v1: defaultMigustoApiPath + "/.rest/recipe/v1/recipes",
+    },
     recipeDetails: defaultMigustoApiPath,
   },
   login: "https://login.migros.ch",
