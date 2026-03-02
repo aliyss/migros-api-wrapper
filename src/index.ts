@@ -1,11 +1,11 @@
-export {
+export type {
   ICookies,
   ILoginCookies,
-  ICumulusCookies
+  ICumulusCookies,
 } from "./api/interfaces/cookies";
-export {
+export type {
   ICumulusReceiptOptions,
-  ICumulusReceiptsOptions
+  ICumulusReceiptsOptions,
 } from "./api/cumulus/receipts";
 export { migrosApiPaths } from "./api/apiPaths";
 export { MigrosAPI } from "./api/MigrosAPI";
