@@ -2,9 +2,7 @@ import { appendParametersToUrl } from "./appendParametersToUrl";
 import { addCookieToHeaders } from "./addCookieToHeaders";
 import { ICookies } from "../api/interfaces/cookies";
 
-import tls from "tls";
 import axios, { AxiosResponse } from "axios";
-import { exec } from "child_process";
 
 export async function getRequest(
   url: string,
@@ -31,6 +29,7 @@ export async function getRequestBypass(
   headers: AxiosResponse["headers"];
   data: AxiosResponse["data"];
 }> {
+  const tls = await import("tls");
   if (!headers["User-Agent"] && process.env.MIGROS_API_WRAPPER_USERAGENT) {
     headers["User-Agent"] = process.env.MIGROS_API_WRAPPER_USERAGENT;
   }
@@ -57,7 +56,8 @@ export async function getRequestBypass(
   return response;
 }
 
-const execPromise = (cmd: string) => {
+const execPromise = async (cmd: string) => {
+  const exec = await import("child_process").then((mod) => mod.exec);
   return new Promise(function (resolve, reject) {
     exec(cmd, function (err: any, stdout: any) {
       if (err) return reject(err);
@@ -126,6 +126,7 @@ export async function postRequestBypass(
   headers: AxiosResponse["headers"];
   data: AxiosResponse["data"];
 }> {
+  const tls = await import("tls");
   if (!headers["User-Agent"] && process.env.MIGROS_API_WRAPPER_USERAGENT) {
     headers["User-Agent"] = process.env.MIGROS_API_WRAPPER_USERAGENT;
   }
