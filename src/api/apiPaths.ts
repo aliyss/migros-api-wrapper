@@ -74,5 +74,4 @@ export const migrosApiPaths = {
   "mobile-app": "https://mobile-app.migros.ch",
   "mobile-api-gateway": "https://mobile-api-gateway.shop.migros.ch",
   "subito-go": "https://subito-go.migros.ch",
-  retentionapi: "https://www.migros.ch/retentionapi",
 };
