@@ -26,6 +26,7 @@ import { stores } from "./stores";
 import { ISearchStoresOptions } from "./stores/search-stores";
 import { shoppingList } from "./shopping-list";
 import { IProductPromotionSearchOptions } from "./product-display/product-promotion";
+import { retentionapi } from "./retentionapi";
 
 if (!process.env.MIGROS_API_WRAPPER_USERAGENT) {
   process.env.MIGROS_API_WRAPPER_USERAGENT =
@@ -92,6 +93,7 @@ export class MigrosAPI {
     recipeProducts: migusto.recipeProducts,
     recipeDetails: migusto.recipeDetails,
   };
+  static retentionapi = retentionapi;
 
   stores = {
     searchStores: async (
