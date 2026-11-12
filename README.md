@@ -121,3 +121,26 @@ Currently following api paths are being considered:
 ```
 
 Feel free to open an issue or a pull request for additional api paths.
+
+## Receipt Products
+
+Get all products (grouped by category) from a store receipt:
+
+```typescript
+import { MigrosAPI } from "migros-api-wrapper";
+
+const responseReceipts = await MigrosAPI.account.cumulus.getCumulusReceipts(
+  { dateFrom: new Date("01.01.2024") },
+  cookies,
+);
+
+const receiptProducts = await MigrosAPI.account.cumulus.getCumulusReceiptProducts(
+  { transactionId: responseReceipts[0].transactionId },
+  cookies,
+);
+
+console.log(receiptProducts);
+```
+
+This calls `GET https://account.migros.ch/ma/api/user/receipt/{transactionId}/product`
+and returns a JSON object mapping product categories to their products.

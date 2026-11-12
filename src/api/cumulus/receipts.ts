@@ -9,6 +9,7 @@ import { ICumulusCookies } from "../interfaces/cookies";
 import { Language } from "../enums/Language";
 import {
   ICumulusReceiptArticle,
+  ICumulusReceiptProductsResponse,
   ICumulusReceiptResponse,
 } from "../interfaces/receipts";
 import { Currency } from "../enums/Currency";
@@ -168,7 +169,7 @@ export async function getCumulusReceipt(
     ...cumulusReceiptOptions,
   };
   return getCumulusReceiptRequest(
-    urlExport + "/" + cumulusReceiptOptions.receiptId,
+    urlExport + "/" + cumulusReceiptOptions.transactionId,
     cumulusReceiptOptions,
     cookies,
     htmlOnly,
@@ -233,4 +234,37 @@ export async function getCumulusReceipts(
     ...cumulusReceiptsOptions,
   };
   return getCumulusReceiptsRequest(urlList, cumulusReceiptsOptions, cookies);
+}
+
+export interface ICumulusReceiptProductsOptions extends Record<string, any> {
+  transactionId: string;
+}
+
+async function getCumulusReceiptProductsRequest(
+  url: string,
+  cookies: ICumulusCookies,
+): Promise<ICumulusReceiptProductsResponse> {
+  const headers = {
+    accept: "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-origin",
+    "X-CSRF-TOKEN": cookies.CSRF || "",
+    "X-MA-INITIATOR": "migros-online",
+    Referer: "https://account.migros.ch/purchases/receipts",
+  };
+
+  const response = await getRequest(url, {}, headers, cookies);
+  return await response.json();
+}
+
+export async function getCumulusReceiptProducts(
+  cumulusReceiptProductsOptions: ICumulusReceiptProductsOptions,
+  cookies: ICumulusCookies,
+): Promise<ICumulusReceiptProductsResponse> {
+  return getCumulusReceiptProductsRequest(
+    urlExport + "/" + cumulusReceiptProductsOptions.transactionId + "/product",
+    cookies,
+  );
 }
