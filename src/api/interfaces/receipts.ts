@@ -74,3 +74,37 @@ export interface ICumulusReceiptsResponseItem {
 }
 
 export type ICumulusReceiptsResponse = Array<ICumulusReceiptsResponseItem>;
+
+export interface ICumulusReceiptProductBrand {
+  imageUrl: string | null;
+  text: string;
+}
+
+export interface ICumulusReceiptProductLabel {
+  imageUrl: string;
+  text: string;
+}
+
+export interface ICumulusReceiptProductPrice {
+  amount: number;
+  currency: string;
+}
+
+export interface ICumulusReceiptProduct {
+  brand: ICumulusReceiptProductBrand | null;
+  category: string;
+  description: string | null;
+  energyEfficiency: string | null;
+  id: number;
+  imageUrl: string;
+  labels: ICumulusReceiptProductLabel[] | null;
+  link: string;
+  name: string;
+  price: ICumulusReceiptProductPrice | null;
+  version: string | null;
+}
+
+export type ICumulusReceiptProductsResponse = Record<
+  string,
+  ICumulusReceiptProduct[]
+>;

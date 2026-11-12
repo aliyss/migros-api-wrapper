@@ -3,6 +3,7 @@ import { getCumulusStats } from "./stats";
 import {
   getCumulusReceipt,
   getCumulusReceiptFromUrl,
+  getCumulusReceiptProducts,
   getCumulusReceipts,
 } from "./receipts";
 import { getCumulusPrincipal } from "./principal";
@@ -18,6 +19,7 @@ export const cumulus = {
   getCumulusStats: getCumulusStats,
   getCumulusReceipt: getCumulusReceipt,
   getCumulusReceiptFromUrl: getCumulusReceiptFromUrl,
+  getCumulusReceiptProducts: getCumulusReceiptProducts,
   getCumulusReceipts: getCumulusReceipts,
   getCumulusPrincipal: getCumulusPrincipal,
   getCumulusServicesSmall: getCumulusServicesSmall,

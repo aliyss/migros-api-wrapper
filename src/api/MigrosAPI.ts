@@ -8,10 +8,12 @@ import { IProductSupplyOptions } from "./marketablestock/product-supply";
 import { ICumulusCookies, ILoginCookies } from "./interfaces/cookies";
 import {
   ICumulusReceiptOptions,
+  ICumulusReceiptProductsOptions,
   ICumulusReceiptsOptions,
 } from "./cumulus/receipts";
 import { combineCookies } from "../utils/combineCookies";
 import {
+  ICumulusReceiptProductsResponse,
   ICumulusReceiptResponse,
   ICumulusReceiptsResponse,
 } from "./interfaces/receipts";
@@ -293,6 +295,18 @@ export class MigrosAPI {
         }
         return await cumulus.getCumulusReceipts(
           cumulusReceiptsOptions,
+          cookies,
+        );
+      },
+      getCumulusReceiptProducts: async (
+        cumulusReceiptProductsOptions: ICumulusReceiptProductsOptions,
+        cookies: ICumulusCookies | undefined = this.cumulusCookies,
+      ): Promise<ICumulusReceiptProductsResponse> => {
+        if (!cookies) {
+          throw Error("Cumulus Cookies are undefined");
+        }
+        return await cumulus.getCumulusReceiptProducts(
+          cumulusReceiptProductsOptions,
           cookies,
         );
       },
